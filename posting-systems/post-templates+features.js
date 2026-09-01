@@ -3,36 +3,20 @@ document.addEventListener("DOMContentLoaded", function () {
   /* =========================
      Build linked images from data-image
      ========================= */
-  document.querySelectorAll(
-    ".fpost-imgl, .fpost-imgr, .fpost-image"
-  ).forEach(function (box) {
+  document.querySelectorAll(".fpost-imgl, .fpost-imgr, .fpost-image").forEach(function(box) {
     if (box.querySelector("img")) return;
 
-    const url =
-      box.getAttribute("data-image");
-
+    const url = box.getAttribute("data-image");
     if (!url || !url.trim()) return;
 
-    const link =
-      document.createElement("a");
+    const link = document.createElement("a");
+    link.href = url.trim();
+    link.target = "_blank";
+    link.rel = "noopener";
 
-    link.href =
-      url.trim();
-
-    link.target =
-      "_blank";
-
-    link.rel =
-      "noopener";
-
-    const img =
-      document.createElement("img");
-
-    img.src =
-      url.trim();
-
-    img.alt =
-      "";
+    const img = document.createElement("img");
+    img.src = url.trim();
+    img.alt = "";
 
     link.appendChild(img);
     box.appendChild(link);
@@ -44,74 +28,42 @@ document.addEventListener("DOMContentLoaded", function () {
      ========================= */
 
   function closePostControlPopups(exceptButton) {
-    const exceptId =
-      exceptButton
-        ? exceptButton.getAttribute(
-            "aria-controls"
-          )
-        : null;
+    const exceptId = exceptButton
+      ? exceptButton.getAttribute("aria-controls")
+      : null;
 
-    document
-      .querySelectorAll(
-        "[data-post-control-btn]"
-      )
-      .forEach(function (btn) {
-        if (btn !== exceptButton) {
-          btn.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-        }
-      });
+    document.querySelectorAll("[data-post-control-btn]").forEach(function(btn) {
+      if (btn !== exceptButton) {
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
 
-    document
-      .querySelectorAll(
-        "[data-post-control-pop]"
-      )
-      .forEach(function (pop) {
-        if (
-          !exceptId ||
-          pop.id !== exceptId
-        ) {
-          pop.hidden = true;
-        }
-      });
+    document.querySelectorAll("[data-post-control-pop]").forEach(function(pop) {
+      if (!exceptId || pop.id !== exceptId) {
+        pop.hidden = true;
+      }
+    });
   }
 
 
-  function buildInfoToggle(
-    rawValue,
-    idSeed,
-    options
-  ) {
-    const toggle =
-      document.createElement("div");
-
-    const btn =
-      document.createElement("button");
-
-    const pop =
-      document.createElement("div");
+  function buildInfoToggle(rawValue, idSeed, options) {
+    const toggle = document.createElement("div");
+    const btn = document.createElement("button");
+    const pop = document.createElement("div");
 
     toggle.className =
-      "post-control-toggle " +
-      options.toggleClass;
+      "post-control-toggle " + options.toggleClass;
 
     btn.className =
-      "post-control-btn " +
-      options.buttonClass;
+      "post-control-btn " + options.buttonClass;
 
     pop.className =
-      "post-control-pop " +
-      options.popupClass;
+      "post-control-pop " + options.popupClass;
 
     pop.id =
-      options.popupPrefix +
-      "-" +
-      idSeed;
+      options.popupPrefix + "-" + idSeed;
 
-    btn.type =
-      "button";
+    btn.type = "button";
 
     btn.setAttribute(
       "aria-expanded",
@@ -141,62 +93,35 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.innerHTML =
       `<i class="ph-duotone ${options.icon}"></i>`;
 
-    pop.hidden =
-      true;
+    pop.hidden = true;
 
-    const label =
-      document.createElement("div");
+    const label = document.createElement("div");
+    label.className = "post-control-pop__label";
+    label.textContent = options.popupLabel;
 
-    label.className =
-      "post-control-pop__label";
-
-    label.textContent =
-      options.popupLabel;
-
-    const value =
-      document.createElement("div");
-
-    value.className =
-      "post-control-pop__value";
-
-    value.innerHTML =
-      rawValue;
+    const value = document.createElement("div");
+    value.className = "post-control-pop__value";
+    value.innerHTML = rawValue;
 
     pop.appendChild(label);
     pop.appendChild(value);
 
-    btn.addEventListener(
-      "click",
-      function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+    btn.addEventListener("click", function(e) {
+      e.stopPropagation();
 
-        const isOpen =
-          btn.getAttribute(
-            "aria-expanded"
-          ) === "true";
+      const isOpen =
+        btn.getAttribute("aria-expanded") === "true";
 
-        closePostControlPopups(btn);
+      closePostControlPopups(btn);
 
-        if (isOpen) {
-          btn.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-          pop.hidden =
-            true;
-        } else {
-          btn.setAttribute(
-            "aria-expanded",
-            "true"
-          );
-
-          pop.hidden =
-            false;
-        }
+      if (isOpen) {
+        btn.setAttribute("aria-expanded", "false");
+        pop.hidden = true;
+      } else {
+        btn.setAttribute("aria-expanded", "true");
+        pop.hidden = false;
       }
-    );
+    });
 
     toggle.appendChild(btn);
     toggle.appendChild(pop);
@@ -205,109 +130,41 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  function buildLocationToggle(
-    rawValue,
-    idSeed
-  ) {
+  function buildLocationToggle(rawValue, idSeed) {
     return buildInfoToggle(
       rawValue,
       idSeed,
       {
-        toggleClass:
-          "meta-toggle",
-
-        buttonClass:
-          "meta-btn",
-
-        popupClass:
-          "meta-pop",
-
-        popupPrefix:
-          "meta-pop",
-
-        icon:
-          "ph-map-pin",
-
-        ariaLabel:
-          "View location",
-
-        popupLabel:
-          "Location"
+        toggleClass: "meta-toggle",
+        buttonClass: "meta-btn",
+        popupClass: "meta-pop",
+        popupPrefix: "meta-pop",
+        icon: "ph-map-pin",
+        ariaLabel: "View location",
+        popupLabel: "Location"
       }
     );
   }
 
 
-  function buildPersonsToggle(
-    rawValue,
-    idSeed
-  ) {
+  function buildPersonsToggle(rawValue, idSeed) {
     return buildInfoToggle(
       rawValue,
       idSeed,
       {
-        toggleClass:
-          "npc-toggle",
-
-        buttonClass:
-          "npc-btn",
-
-        popupClass:
-          "npc-pop",
-
-        popupPrefix:
-          "npc-pop",
-
-        icon:
-          "ph-users-three",
-
-        ariaLabel:
-          "View additional persons present",
-
-        popupLabel:
-          "Additional Persons Present"
+        toggleClass: "npc-toggle",
+        buttonClass: "npc-btn",
+        popupClass: "npc-pop",
+        popupPrefix: "npc-pop",
+        icon: "ph-users-three",
+        ariaLabel: "View additional persons present",
+        popupLabel: "Additional Persons Present"
       }
     );
   }
 
 
-  function buildNotesToggle(
-    rawValue,
-    idSeed
-  ) {
-    return buildInfoToggle(
-      rawValue,
-      idSeed,
-      {
-        toggleClass:
-          "notes-toggle",
-
-        buttonClass:
-          "notes-btn",
-
-        popupClass:
-          "notes-pop",
-
-        popupPrefix:
-          "notes-pop",
-
-        icon:
-          "ph-notepad",
-
-        ariaLabel:
-          "View notes",
-
-        popupLabel:
-          "Notes"
-      }
-    );
-  }
-
-
-
-  function cleanupBodyLeadingSpace(
-    body
-  ) {
+  function cleanupBodyLeadingSpace(body) {
     while (
       body.firstChild &&
       (
@@ -321,9 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
         )
       )
     ) {
-      body.removeChild(
-        body.firstChild
-      );
+      body.removeChild(body.firstChild);
     }
   }
 
@@ -332,524 +187,326 @@ document.addEventListener("DOMContentLoaded", function () {
      Fancy post template
      ========================= */
 
-  document
-    .querySelectorAll(".fpost-wrap")
-    .forEach(function (
-      post,
-      index
-    ) {
-      let image =
-        null;
+  document.querySelectorAll(".fpost-wrap").forEach(function(post, index) {
+    let image = null;
+    let body = null;
 
-      let body =
-        null;
-
-      Array.from(
-        post.children
-      ).forEach(function (
-        child
-      ) {
-        if (
-          child.classList.contains(
-            "fpost-image"
-          )
-        ) {
-          image = child;
-        }
-
-        if (
-          child.classList.contains(
-            "fpost-body"
-          )
-        ) {
-          body = child;
-        }
-      });
-
-      if (!image || !body) {
-        return;
+    Array.from(post.children).forEach(function(child) {
+      if (child.classList.contains("fpost-image")) {
+        image = child;
       }
 
-      let overlay =
-        image.querySelector(
-          ".fpost-overlay"
-        );
-
-      if (!overlay) {
-        overlay =
-          document.createElement(
-            "div"
-          );
-
-        overlay.className =
-          "fpost-overlay";
-
-        image.appendChild(
-          overlay
-        );
+      if (child.classList.contains("fpost-body")) {
+        body = child;
       }
-
-      let topbar =
-        post.querySelector(
-          ".fpost-topbar"
-        );
-
-      if (!topbar) {
-        topbar =
-          document.createElement(
-            "div"
-          );
-
-        topbar.className =
-          "fpost-topbar";
-
-        body.parentNode.insertBefore(
-          topbar,
-          body
-        );
-      }
-
-      let meta =
-        null;
-
-      let npcs =
-        null;
-
-      let qTop =
-        null;
-
-      let outfit =
-        null;
-
-      let music =
-        null;
-
-      let gear =
-        null;
-
-      let transpo =
-        null;
-
-      let notes =
-        null;
-
-      Array.from(
-        body.children
-      ).forEach(function (
-        child
-      ) {
-        if (
-          child.classList.contains(
-            "post-meta"
-          )
-        ) {
-          meta = child;
-        }
-
-        if (
-          child.classList.contains(
-            "post-npcs"
-          )
-        ) {
-          npcs = child;
-        }
-
-        if (
-          child.classList.contains(
-            "fpost-qtop"
-          )
-        ) {
-          qTop = child;
-        }
-
-        if (
-          child.classList.contains(
-            "fpost-outfit"
-          )
-        ) {
-          outfit = child;
-        }
-
-         if (
-          child.classList.contains(
-            "fpost-music"
-          )
-        ) {
-          music = child;
-        }
-
- if (
-          child.classList.contains(
-            "fpost-gear"
-          )
-        ) {
-          gear = child;
-        }
-
-
- if (
-          child.classList.contains(
-            "fpost-transpo"
-          )
-        ) {
-          transpo = child;
-        }
-      });
-
-      if (qTop) {
-        overlay.appendChild(
-          qTop
-        );
-      }
-
-      /* LOCATION */
-      if (meta) {
-        const rawMeta =
-          meta.innerHTML.trim();
-
-        if (rawMeta) {
-          topbar.appendChild(
-            buildLocationToggle(
-              rawMeta,
-              "fpost-" + index
-            )
-          );
-        }
-
-        meta.remove();
-      }
-
-      /* ADDITIONAL PERSONS PRESENT */
-      if (npcs) {
-        const rawNPCs =
-          npcs.innerHTML.trim();
-
-        if (rawNPCs) {
-          topbar.appendChild(
-            buildPersonsToggle(
-              rawNPCs,
-              "fpost-" + index
-            )
-          );
-        }
-
-        npcs.remove();
-      }
-
-     if (notes) {
-        const notesToggle =
-          buildNotesFromWrapper(
-            notes,
-            "fpost-" + index
-          );
-
-        if (notesToggle) {
-          topbar.appendChild(
-            notesToggle
-          );
-        }
-
-        notes.remove();
-      }
-
-
-      if (music) {
-        topbar.appendChild(
-          music
-        );
-      }
-
-     
-      if (outfit) {
-        topbar.appendChild(
-          outfit
-        );
-      }
-
-   
-      if (gear) {
-        topbar.appendChild(
-          gear
-        );
-      }
-
-    
-      if (transpo) {
-        topbar.appendChild(
-          transpo
-        );
-      }
-
-      if (
-        !overlay.children.length
-      ) {
-        overlay.remove();
-
-        post.classList.remove(
-          "has-fpost-overlay"
-        );
-      } else {
-        post.classList.add(
-          "has-fpost-overlay"
-        );
-      }
-
-      if (
-        !topbar.children.length
-      ) {
-        topbar.remove();
-
-        post.classList.remove(
-          "has-fpost-topbar"
-        );
-      } else {
-        post.classList.add(
-          "has-fpost-topbar"
-        );
-      }
-
-      cleanupBodyLeadingSpace(
-        body
-      );
     });
+
+    if (!image || !body) return;
+
+    let overlay = image.querySelector(".fpost-overlay");
+
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "fpost-overlay";
+      image.appendChild(overlay);
+    }
+
+    let topbar = post.querySelector(".fpost-topbar");
+
+    if (!topbar) {
+      topbar = document.createElement("div");
+      topbar.className = "fpost-topbar";
+      body.parentNode.insertBefore(topbar, body);
+    }
+
+    let meta = null;
+    let npcs = null;
+    let qTop = null;
+    let outfit = null;
+    let music = null;
+    let gear = null;
+    let transpo = null;
+    let notes = null;
+
+    Array.from(body.children).forEach(function(child) {
+      if (child.classList.contains("post-meta")) {
+        meta = child;
+      }
+
+      if (child.classList.contains("post-npcs")) {
+        npcs = child;
+      }
+
+      if (child.classList.contains("fpost-qtop")) {
+        qTop = child;
+      }
+
+      if (child.classList.contains("fpost-outfit")) {
+        outfit = child;
+      }
+
+      if (child.classList.contains("fpost-music")) {
+        music = child;
+      }
+
+      if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+
+      if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
+      }
+
+      if (child.classList.contains("post-notes")) {
+        notes = child;
+      }
+    });
+
+    if (qTop) {
+      overlay.appendChild(qTop);
+    }
+
+    /* LOCATION */
+    if (meta) {
+      const rawMeta = meta.innerHTML.trim();
+
+      if (rawMeta) {
+        topbar.appendChild(
+          buildLocationToggle(
+            rawMeta,
+            "fpost-" + index
+          )
+        );
+      }
+
+      meta.remove();
+    }
+
+    /* ADDITIONAL PERSONS PRESENT */
+    if (npcs) {
+      const rawNPCs = npcs.innerHTML.trim();
+
+      if (rawNPCs) {
+        topbar.appendChild(
+          buildPersonsToggle(
+            rawNPCs,
+            "fpost-" + index
+          )
+        );
+      }
+
+      npcs.remove();
+    }
+
+    /* NOTES */
+    if (notes) {
+      const rawNotes = notes.innerHTML.trim();
+
+      if (rawNotes) {
+        topbar.appendChild(
+          buildInfoToggle(
+            rawNotes,
+            "fpost-" + index,
+            {
+              toggleClass: "notes-toggle",
+              buttonClass: "notes-btn",
+              popupClass: "notes-pop",
+              popupPrefix: "notes-pop",
+              icon: "ph-note",
+              ariaLabel: "View notes",
+              popupLabel: "Notes"
+            }
+          )
+        );
+      }
+
+      notes.remove();
+    }
+
+    if (music) {
+      topbar.appendChild(music);
+    }
+
+    if (outfit) {
+      topbar.appendChild(outfit);
+    }
+
+    if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
+    }
+
+    if (!overlay.children.length) {
+      overlay.remove();
+      post.classList.remove("has-fpost-overlay");
+    } else {
+      post.classList.add("has-fpost-overlay");
+    }
+
+    if (!topbar.children.length) {
+      topbar.remove();
+      post.classList.remove("has-fpost-topbar");
+    } else {
+      post.classList.add("has-fpost-topbar");
+    }
+
+    cleanupBodyLeadingSpace(body);
+  });
 
 
   /* =========================
      Headerless post template
      ========================= */
 
-  document
-    .querySelectorAll(".post-wrap")
-    .forEach(function (
-      post,
-      index
-    ) {
-      let body =
-        null;
+  document.querySelectorAll(".post-wrap").forEach(function(post, index) {
+    let body = null;
 
-      Array.from(
-        post.children
-      ).forEach(function (
-        child
-      ) {
-        if (
-          child.classList.contains(
-            "post-body"
-          )
-        ) {
-          body = child;
-        }
-      });
-
-      if (!body) {
-        return;
+    Array.from(post.children).forEach(function(child) {
+      if (child.classList.contains("post-body")) {
+        body = child;
       }
-
-      let topbar =
-        post.querySelector(
-          ".post-topbar"
-        );
-
-      if (!topbar) {
-        topbar =
-          document.createElement(
-            "div"
-          );
-
-        topbar.className =
-          "post-topbar";
-
-        body.parentNode.insertBefore(
-          topbar,
-          body
-        );
-      }
-
-      let meta =
-        null;
-
-      let npcs =
-        null;
-
-      let outfit =
-        null;
-
-      let music =
-        null;
-
-      let gear =
-        null;
-
-      let transpo =
-        null;
-
-      let notes =
-        null;
-
-      Array.from(
-        body.children
-      ).forEach(function (
-        child
-      ) {
-        if (
-          child.classList.contains(
-            "post-meta"
-          )
-        ) {
-          meta = child;
-        }
-
-        if (
-          child.classList.contains(
-            "post-npcs"
-          )
-        ) {
-          npcs = child;
-        }
-
-if (
-          child.classList.contains(
-            "post-notes"
-          )
-        ) {
-          notes = child;
-        }
-
-
-        if (
-          child.classList.contains(
-            "fpost-outfit"
-          )
-        ) {
-          outfit = child;
-        }
-
-        if (
-          child.classList.contains(
-            "fpost-music"
-          )
-        ) {
-          music = child;
-        }
-
- if (
-          child.classList.contains(
-            "fpost-gear"
-          )
-        ) {
-          gear = child;
-        }
-
-
- if (
-          child.classList.contains(
-            "fpost-transpo"
-          )
-        ) {
-          transpo = child;
-        }
-      });
-
-      /* LOCATION */
-      if (meta) {
-        const rawMeta =
-          meta.innerHTML.trim();
-
-        if (rawMeta) {
-          topbar.appendChild(
-            buildLocationToggle(
-              rawMeta,
-              "post-" + index
-            )
-          );
-        }
-
-        meta.remove();
-      }
-
-      /* ADDITIONAL PERSONS PRESENT */
-      if (npcs) {
-        const rawNPCs =
-          npcs.innerHTML.trim();
-
-        if (rawNPCs) {
-          topbar.appendChild(
-            buildPersonsToggle(
-              rawNPCs,
-              "post-" + index
-            )
-          );
-        }
-
-        npcs.remove();
-      }
-
- if (notes) {
-        const notesToggle =
-          buildNotesFromWrapper(
-            notes,
-            "post-" + index
-          );
-
-        if (notesToggle) {
-          topbar.appendChild(
-            notesToggle
-          );
-        }
-
-        notes.remove();
-      }
-
-      if (music) {
-        topbar.appendChild(
-          music
-        );
-      }
-
-      if (outfit) {
-        topbar.appendChild(
-          outfit
-        );
-      }
-
-      if (gear) {
-        topbar.appendChild(
-          gear
-        );
-      }
-
-
-      if (transpo) {
-        topbar.appendChild(
-          transpo
-        );
-      }
-
-      if (
-        !topbar.children.length
-      ) {
-        topbar.remove();
-      }
-
-      cleanupBodyLeadingSpace(
-        body
-      );
     });
+
+    if (!body) return;
+
+    let topbar = post.querySelector(".post-topbar");
+
+    if (!topbar) {
+      topbar = document.createElement("div");
+      topbar.className = "post-topbar";
+      body.parentNode.insertBefore(topbar, body);
+    }
+
+    let meta = null;
+    let npcs = null;
+    let outfit = null;
+    let music = null;
+    let gear = null;
+    let transpo = null;
+    let notes = null;
+
+    Array.from(body.children).forEach(function(child) {
+      if (child.classList.contains("post-meta")) {
+        meta = child;
+      }
+
+      if (child.classList.contains("post-npcs")) {
+        npcs = child;
+      }
+
+      if (child.classList.contains("fpost-outfit")) {
+        outfit = child;
+      }
+
+      if (child.classList.contains("fpost-music")) {
+        music = child;
+      }
+
+      if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+
+      if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
+      }
+
+      if (child.classList.contains("post-notes")) {
+        notes = child;
+      }
+    });
+
+    /* LOCATION */
+    if (meta) {
+      const rawMeta = meta.innerHTML.trim();
+
+      if (rawMeta) {
+        topbar.appendChild(
+          buildLocationToggle(
+            rawMeta,
+            "post-" + index
+          )
+        );
+      }
+
+      meta.remove();
+    }
+
+    /* ADDITIONAL PERSONS PRESENT */
+    if (npcs) {
+      const rawNPCs = npcs.innerHTML.trim();
+
+      if (rawNPCs) {
+        topbar.appendChild(
+          buildPersonsToggle(
+            rawNPCs,
+            "post-" + index
+          )
+        );
+      }
+
+      npcs.remove();
+    }
+
+    /* NOTES */
+    if (notes) {
+      const rawNotes = notes.innerHTML.trim();
+
+      if (rawNotes) {
+        topbar.appendChild(
+          buildInfoToggle(
+            rawNotes,
+            "post-" + index,
+            {
+              toggleClass: "notes-toggle",
+              buttonClass: "notes-btn",
+              popupClass: "notes-pop",
+              popupPrefix: "notes-pop",
+              icon: "ph-note",
+              ariaLabel: "View notes",
+              popupLabel: "Notes"
+            }
+          )
+        );
+      }
+
+      notes.remove();
+    }
+
+    if (music) {
+      topbar.appendChild(music);
+    }
+
+    if (outfit) {
+      topbar.appendChild(outfit);
+    }
+
+    if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
+    }
+
+    if (!topbar.children.length) {
+      topbar.remove();
+    }
+
+    cleanupBodyLeadingSpace(body);
+  });
 
 
   /* =========================
      Global close
      ========================= */
 
-  document.addEventListener(
-    "click",
-    function (e) {
-      if (
-        !e.target.closest(
-          ".post-control-toggle"
-        )
-      ) {
-        closePostControlPopups();
-      }
-    });
+  document.addEventListener("click", function(e) {
+    if (!e.target.closest(".post-control-toggle")) {
+      closePostControlPopups();
+    }
+  });
+
 });
