@@ -164,23 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  function buildNotesToggle(rawValue, idSeed) {
-    return buildInfoToggle(
-      rawValue,
-      idSeed,
-      {
-        toggleClass: "notes-toggle",
-        buttonClass: "notes-btn",
-        popupClass: "notes-pop",
-        popupPrefix: "notes-pop",
-        icon: "ph-note",
-        ariaLabel: "View notes",
-        popupLabel: "Notes"
-      }
-    );
-  }
-
-
   function cleanupBodyLeadingSpace(body) {
     while (
       body.firstChild &&
@@ -201,24 +184,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================
-     Process plugin blocks
+     Fancy post template
      ========================= */
 
-  function moveNonPopupPlugin(topbar, body, selector) {
-    const plugin = body.querySelector(selector);
+  document.querySelectorAll(".fpost-wrap").forEach(function(post, index) {
+    let image = null;
+    let body = null;
 
-    if (plugin) {
-      topbar.appendChild(plugin);
-      return true;
-    }
+    Array.from(post.children).forEach(function(child) {
+      if (child.classList.contains("fpost-image")) {
+        image = child;
+      }
 
-    return false;
-  }
-
-
-  function processFancyPost(post, index) {
-    const image = post.querySelector(":scope > .fpost-image");
-    const body = post.querySelector(":scope > .fpost-body");
+      if (child.classList.contains("fpost-body")) {
+        body = child;
+      }
+    });
 
     if (!image || !body) return;
 
@@ -230,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
       image.appendChild(overlay);
     }
 
-    let topbar = post.querySelector(":scope > .fpost-topbar");
+    let topbar = post.querySelector(".fpost-topbar");
 
     if (!topbar) {
       topbar = document.createElement("div");
@@ -238,21 +219,50 @@ document.addEventListener("DOMContentLoaded", function () {
       body.parentNode.insertBefore(topbar, body);
     }
 
-    /*
-       IMPORTANT:
-       BBCode conversion may insert plugin blocks after DOMContentLoaded,
-       or inside wrapper elements. Therefore all plugin searches use
-       body.querySelector(), not body.children, and this function is also
-       called by the MutationObserver below.
-    */
+    let meta = null;
+    let npcs = null;
+    let qTop = null;
+    let outfit = null;
+    let music = null;
+    let gear = null;
+    let transpo = null;
+    let notes = null;
 
-    const meta = body.querySelector(".post-meta");
-    const npcs = body.querySelector(".post-npcs");
-    const qTop = body.querySelector(".fpost-qtop");
-    const notes = body.querySelector(".post-notes");
+    Array.from(body.children).forEach(function(child) {
+      if (child.classList.contains("post-meta")) {
+        meta = child;
+      }
 
-    /* Quote belongs in the image overlay, not the topbar. */
-    if (qTop && !overlay.contains(qTop)) {
+      if (child.classList.contains("post-npcs")) {
+        npcs = child;
+      }
+
+      if (child.classList.contains("fpost-qtop")) {
+        qTop = child;
+      }
+
+      if (child.classList.contains("fpost-outfit")) {
+        outfit = child;
+      }
+
+      if (child.classList.contains("fpost-music")) {
+        music = child;
+      }
+
+      if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+
+      if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
+      }
+
+      if (child.classList.contains("post-notes")) {
+        notes = child;
+      }
+    });
+
+    if (qTop) {
       overlay.appendChild(qTop);
     }
 
@@ -288,29 +298,45 @@ document.addEventListener("DOMContentLoaded", function () {
       npcs.remove();
     }
 
-    /* NON-POPUP LINK CONTROLS */
-    moveNonPopupPlugin(topbar, body, ".fpost-music");
-    moveNonPopupPlugin(topbar, body, ".fpost-outfit");
-    moveNonPopupPlugin(topbar, body, ".fpost-gear");
-    moveNonPopupPlugin(topbar, body, ".fpost-transpo");
-
-    /* NOTES POPUP — deliberately appended last so the seven-control order is:
-       meta, npcs, music, outfit, gear, transpo, notes */
-    const notesAfterLinks = body.querySelector(".post-notes");
-
-    if (notesAfterLinks) {
-      const rawNotes = notesAfterLinks.innerHTML.trim();
+    /* NOTES */
+    if (notes) {
+      const rawNotes = notes.innerHTML.trim();
 
       if (rawNotes) {
         topbar.appendChild(
-          buildNotesToggle(
+          buildInfoToggle(
             rawNotes,
-            "fpost-" + index
+            "fpost-" + index,
+            {
+              toggleClass: "notes-toggle",
+              buttonClass: "notes-btn",
+              popupClass: "notes-pop",
+              popupPrefix: "notes-pop",
+              icon: "ph-note",
+              ariaLabel: "View notes",
+              popupLabel: "Notes"
+            }
           )
         );
       }
 
-      notesAfterLinks.remove();
+      notes.remove();
+    }
+
+    if (music) {
+      topbar.appendChild(music);
+    }
+
+    if (outfit) {
+      topbar.appendChild(outfit);
+    }
+
+    if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
     }
 
     if (!overlay.children.length) {
@@ -328,15 +354,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     cleanupBodyLeadingSpace(body);
-  }
+  });
 
 
-  function processHeaderlessPost(post, index) {
-    const body = post.querySelector(":scope > .post-body");
+  /* =========================
+     Headerless post template
+     ========================= */
+
+  document.querySelectorAll(".post-wrap").forEach(function(post, index) {
+    let body = null;
+
+    Array.from(post.children).forEach(function(child) {
+      if (child.classList.contains("post-body")) {
+        body = child;
+      }
+    });
 
     if (!body) return;
 
-    let topbar = post.querySelector(":scope > .post-topbar");
+    let topbar = post.querySelector(".post-topbar");
 
     if (!topbar) {
       topbar = document.createElement("div");
@@ -344,8 +380,43 @@ document.addEventListener("DOMContentLoaded", function () {
       body.parentNode.insertBefore(topbar, body);
     }
 
-    const meta = body.querySelector(".post-meta");
-    const npcs = body.querySelector(".post-npcs");
+    let meta = null;
+    let npcs = null;
+    let outfit = null;
+    let music = null;
+    let gear = null;
+    let transpo = null;
+    let notes = null;
+
+    Array.from(body.children).forEach(function(child) {
+      if (child.classList.contains("post-meta")) {
+        meta = child;
+      }
+
+      if (child.classList.contains("post-npcs")) {
+        npcs = child;
+      }
+
+      if (child.classList.contains("fpost-outfit")) {
+        outfit = child;
+      }
+
+      if (child.classList.contains("fpost-music")) {
+        music = child;
+      }
+
+      if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+
+      if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
+      }
+
+      if (child.classList.contains("post-notes")) {
+        notes = child;
+      }
+    });
 
     /* LOCATION */
     if (meta) {
@@ -379,23 +450,24 @@ document.addEventListener("DOMContentLoaded", function () {
       npcs.remove();
     }
 
-    /* NON-POPUP LINK CONTROLS */
-    moveNonPopupPlugin(topbar, body, ".fpost-music");
-    moveNonPopupPlugin(topbar, body, ".fpost-outfit");
-    moveNonPopupPlugin(topbar, body, ".fpost-gear");
-    moveNonPopupPlugin(topbar, body, ".fpost-transpo");
-
-    /* NOTES POPUP — last control */
-    const notes = body.querySelector(".post-notes");
-
+    /* NOTES */
     if (notes) {
       const rawNotes = notes.innerHTML.trim();
 
       if (rawNotes) {
         topbar.appendChild(
-          buildNotesToggle(
+          buildInfoToggle(
             rawNotes,
-            "post-" + index
+            "post-" + index,
+            {
+              toggleClass: "notes-toggle",
+              buttonClass: "notes-btn",
+              popupClass: "notes-pop",
+              popupPrefix: "notes-pop",
+              icon: "ph-note",
+              ariaLabel: "View notes",
+              popupLabel: "Notes"
+            }
           )
         );
       }
@@ -403,67 +475,27 @@ document.addEventListener("DOMContentLoaded", function () {
       notes.remove();
     }
 
+    if (music) {
+      topbar.appendChild(music);
+    }
+
+    if (outfit) {
+      topbar.appendChild(outfit);
+    }
+
+    if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
+    }
+
     if (!topbar.children.length) {
       topbar.remove();
     }
 
     cleanupBodyLeadingSpace(body);
-  }
-
-
-  /* =========================
-     Initial processing
-     ========================= */
-
-  document.querySelectorAll(".fpost-wrap").forEach(function(post, index) {
-    processFancyPost(post, index);
-  });
-
-  document.querySelectorAll(".post-wrap").forEach(function(post, index) {
-    /* Avoid treating a fancy post as a headerless post if selectors overlap. */
-    if (!post.classList.contains("fpost-wrap")) {
-      processHeaderlessPost(post, index);
-    }
-  });
-
-
-  /* =========================
-     Late BBCode/plugin insertion
-     ========================= */
-
-  /*
-     Some forum/plugin parsers populate [gear], [transpo], and [notes]
-     after the initial DOM pass. Watch each post body so those elements
-     are relocated into the existing topbar as soon as they appear.
-  */
-  document.querySelectorAll(".fpost-wrap, .post-wrap").forEach(function(post) {
-    const body = post.querySelector(":scope > .fpost-body, :scope > .post-body");
-
-    if (!body) return;
-
-    let scheduled = false;
-
-    const observer = new MutationObserver(function() {
-      if (scheduled) return;
-      scheduled = true;
-
-      requestAnimationFrame(function() {
-        scheduled = false;
-
-        if (post.classList.contains("fpost-wrap")) {
-          const index = Array.from(document.querySelectorAll(".fpost-wrap")).indexOf(post);
-          processFancyPost(post, index);
-        } else {
-          const index = Array.from(document.querySelectorAll(".post-wrap")).indexOf(post);
-          processHeaderlessPost(post, index);
-        }
-      });
-    });
-
-    observer.observe(body, {
-      childList: true,
-      subtree: true
-    });
   });
 
 
@@ -478,3 +510,4 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
