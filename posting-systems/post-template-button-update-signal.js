@@ -1,1 +1,441 @@
-function _0x5971(_0x28826b,_0x12dac4){_0x28826b=_0x28826b-0xc1;const _0x538102=_0x5381();let _0x5971ff=_0x538102[_0x28826b];return _0x5971ff;}const _0x14210f=_0x5971;(function(_0xfe309d,_0x4f43e5){const _0x14d2e6=_0x5971,_0x4e49cf=_0xfe309d();while(!![]){try{const _0xe99e0e=parseInt(_0x14d2e6(0x10b))/0x1+parseInt(_0x14d2e6(0xe4))/0x2*(-parseInt(_0x14d2e6(0xeb))/0x3)+-parseInt(_0x14d2e6(0x100))/0x4+-parseInt(_0x14d2e6(0xfd))/0x5+-parseInt(_0x14d2e6(0x107))/0x6+parseInt(_0x14d2e6(0xcd))/0x7*(-parseInt(_0x14d2e6(0xda))/0x8)+-parseInt(_0x14d2e6(0x113))/0x9*(-parseInt(_0x14d2e6(0x102))/0xa);if(_0xe99e0e===_0x4f43e5)break;else _0x4e49cf['push'](_0x4e49cf['shift']());}catch(_0x55e2a4){_0x4e49cf['push'](_0x4e49cf['shift']());}}}(_0x5381,0xf0e7f),document[_0x14210f(0xd0)](_0x14210f(0x111),function(){const _0x3d1b52=_0x14210f,_0x428607={'pYbXL':function(_0x586837){return _0x586837();},'QNbMR':_0x3d1b52(0xf4),'qokdI':function(_0x110f64,_0x3fff53){return _0x110f64(_0x3fff53);},'fDFiQ':function(_0x9ec95b,_0x52151d){return _0x9ec95b(_0x52151d);},'dSEGw':'Could\x20not\x20scan\x20previous\x20thread\x20page\x20for\x20outfit/music\x20changes:','adEhA':'music','YaXEv':_0x3d1b52(0xc6),'QkfyH':_0x3d1b52(0xdc),'ZLuDR':function(_0x4088ec,_0x1d62e6){return _0x4088ec!==_0x1d62e6;},'njaJI':_0x3d1b52(0xcf),'YQMZC':_0x3d1b52(0xc2),'vvngE':_0x3d1b52(0xf7),'wYkqb':_0x3d1b52(0xe8),'kzWHt':_0x3d1b52(0xc8),'XifxZ':_0x3d1b52(0xc4),'VGrbc':'aria-label','Pufnt':function(_0x29373b,_0x22bae1){return _0x29373b+_0x22bae1;},'NUcmO':_0x3d1b52(0xd4),'tBPst':function(_0xeca079,_0x22d574){return _0xeca079+_0x22d574;},'CADlu':function(_0x5aea5f,_0x38b918){return _0x5aea5f&&_0x38b918;},'BBJPW':function(_0x3966f8,_0x6ab6cb){return _0x3966f8!==_0x6ab6cb;},'ikpQb':function(_0x22a57d,_0x49cac1){return _0x22a57d<_0x49cac1;},'ZORIV':function(_0x74d823,_0xf9fd19){return _0x74d823-_0xf9fd19;},'jBKYV':function(_0x203872,_0x184a2c){return _0x203872(_0x184a2c);},'bETAY':function(_0x1a6e84,_0x304950){return _0x1a6e84<=_0x304950;},'oZqAf':_0x3d1b52(0x10c),'skXJE':'showtopic','ZXyCT':function(_0x37de3e,_0x1d0679,_0xc4e6c7){return _0x37de3e(_0x1d0679,_0xc4e6c7);},'xOfyZ':_0x3d1b52(0xd3),'PkuFk':_0x3d1b52(0xd9),'srspT':'.p-postname\x20a[href]','phCuL':_0x3d1b52(0xfe),'niwwY':_0x3d1b52(0xca)};_0x428607[_0x3d1b52(0xf5)](requestAnimationFrame,function(){const _0x1582c9=_0x3d1b52;_0x428607[_0x1582c9(0xc9)](_0x36b09b);});async function _0x36b09b(){const _0x260a6d=_0x3d1b52,_0x58c2a6={},_0x4c3342=_0x428607[_0x260a6d(0xc9)](_0x3e1575);console[_0x260a6d(0xe6)](_0x428607['QNbMR'],_0x4c3342);if(_0x4c3342)try{const _0x486fcc=await _0x428607[_0x260a6d(0x10d)](_0x1e663d,_0x4c3342);_0x428607[_0x260a6d(0xf5)](_0xd12413,{'root':_0x486fcc,'seenByOwner':_0x58c2a6,'markChanges':![]});}catch(_0xa5c99c){console[_0x260a6d(0xc1)](_0x428607[_0x260a6d(0xf6)],_0x4c3342,_0xa5c99c);}_0x428607[_0x260a6d(0x10d)](_0xd12413,{'root':document,'seenByOwner':_0x58c2a6,'markChanges':!![]});}function _0xd12413(_0x29ba19){const _0x2c66ff=_0x3d1b52,_0x2ebeb=_0x29ba19[_0x2c66ff(0xd7)],_0x5465bc=_0x29ba19['seenByOwner'],_0x560c8c=_0x29ba19[_0x2c66ff(0xe3)],_0x26c880=Array[_0x2c66ff(0xcc)](_0x2ebeb[_0x2c66ff(0xce)](_0x428607[_0x2c66ff(0x10f)]));_0x26c880[_0x2c66ff(0xfb)](function(_0x240de2){const _0x3fe4a8=_0x2c66ff,_0x47ed65=_0x6f238a(_0x240de2);if(!_0x47ed65)return;!_0x5465bc[_0x47ed65]&&(_0x5465bc[_0x47ed65]={'outfit':null,'music':null}),_0x5dd3da({'template':_0x240de2,'ownerKey':_0x47ed65,'type':_0x428607[_0x3fe4a8(0xd5)],'selector':_0x3fe4a8(0xee),'seenByOwner':_0x5465bc,'markChanges':_0x560c8c}),_0x5dd3da({'template':_0x240de2,'ownerKey':_0x47ed65,'type':'outfit','selector':_0x428607[_0x3fe4a8(0xd6)],'seenByOwner':_0x5465bc,'markChanges':_0x560c8c});});}function _0x5dd3da(_0x28f9cd){const _0x4ad1e8=_0x3d1b52,_0x3c5228=_0x28f9cd[_0x4ad1e8(0x114)][_0x4ad1e8(0xdd)](_0x28f9cd[_0x4ad1e8(0xf9)]);if(!_0x3c5228)return;const _0x5e4b02=_0x428607[_0x4ad1e8(0xf5)](_0x27bf74,_0x3c5228[_0x4ad1e8(0xfe)]);if(!_0x5e4b02)return;const _0x1bb96c=_0x28f9cd[_0x4ad1e8(0xed)][_0x28f9cd['ownerKey']][_0x28f9cd[_0x4ad1e8(0xe2)]];_0x28f9cd[_0x4ad1e8(0xe3)]&&_0x1bb96c&&_0x428607[_0x4ad1e8(0xd8)](_0x1bb96c,_0x5e4b02)&&_0x1b8f67(_0x3c5228,_0x28f9cd[_0x4ad1e8(0xe2)]),_0x28f9cd['seenByOwner'][_0x28f9cd[_0x4ad1e8(0xea)]][_0x28f9cd[_0x4ad1e8(0xe2)]]=_0x5e4b02;}function _0x1b8f67(_0x51960f,_0x1c80b2){const _0x3816ad=_0x3d1b52,_0x9f36c2=_0x1c80b2===_0x428607[_0x3816ad(0x117)]?_0x428607[_0x3816ad(0xf3)]:_0x428607['vvngE'];_0x51960f[_0x3816ad(0xc7)][_0x3816ad(0xe1)](_0x428607[_0x3816ad(0xcb)]),_0x51960f['dataset']['changedType']=_0x1c80b2,_0x51960f[_0x3816ad(0xe7)](_0x428607[_0x3816ad(0xef)],_0x9f36c2+_0x428607['XifxZ']),_0x51960f[_0x3816ad(0xe7)](_0x428607[_0x3816ad(0xe5)],_0x428607[_0x3816ad(0x116)](_0x9f36c2,_0x428607[_0x3816ad(0xf1)]));}async function _0x1e663d(_0x5bf052){const _0x5e8fa1=_0x3d1b52,_0x202b4a=await fetch(_0x5bf052,{'credentials':_0x428607['NUcmO']});if(!_0x202b4a['ok'])throw new Error(_0x428607['tBPst'](_0x5e8fa1(0xec),_0x202b4a[_0x5e8fa1(0x110)]));const _0x3b3ee6=await _0x202b4a[_0x5e8fa1(0xc5)]();return new DOMParser()[_0x5e8fa1(0x115)](_0x3b3ee6,'text/html');}function _0x3e1575(){const _0x79188a=_0x3d1b52,_0x2de4b1={'WMxVc':function(_0x54c183,_0x56ea7c){const _0x1ff9b7=_0x5971;return _0x428607[_0x1ff9b7(0x112)](_0x54c183,_0x56ea7c);}},_0x1b16c3=new URL(window[_0x79188a(0xf2)][_0x79188a(0xfe)]),_0x5533d4=_0x428607[_0x79188a(0x104)](_0x4b5045,_0x1b16c3),_0x46065e=_0x3ec282(_0x1b16c3);if(_0x428607[_0x79188a(0xfa)](_0x46065e,0x0))return null;const _0x5d2c82=Array[_0x79188a(0xcc)](document['querySelectorAll'](_0x428607[_0x79188a(0xff)])),_0x58c303=[];_0x5d2c82[_0x79188a(0xfb)](function(_0x4f999a){const _0x3f7a0c=_0x79188a;let _0x22aaae;try{_0x22aaae=new URL(_0x4f999a[_0x3f7a0c(0xfe)],window[_0x3f7a0c(0xf2)]['href']);}catch(_0x44732e){return;}const _0x534845=_0x428607[_0x3f7a0c(0xf5)](_0x4b5045,_0x22aaae);if(_0x428607[_0x3f7a0c(0xf8)](_0x5533d4,_0x534845)&&_0x428607[_0x3f7a0c(0xdb)](_0x5533d4,_0x534845))return;const _0x114f7e=_0x428607[_0x3f7a0c(0x10d)](_0x3ec282,_0x22aaae);_0x428607['ikpQb'](_0x114f7e,_0x46065e)&&_0x58c303[_0x3f7a0c(0xf0)]({'href':_0x22aaae[_0x3f7a0c(0xfe)],'start':_0x114f7e});});if(_0x58c303[_0x79188a(0x118)])return _0x58c303['sort'](function(_0x500fef,_0x2a245e){const _0x440a5a=_0x79188a;return _0x2de4b1[_0x440a5a(0x10e)](_0x2a245e[_0x440a5a(0x105)],_0x500fef['start']);}),_0x58c303[0x0]['href'];return null;}function _0x4b5045(_0x44792b){const _0x6ec817=_0x3d1b52,_0xd67275=_0x44792b['searchParams'][_0x6ec817(0xfc)](_0x428607[_0x6ec817(0x108)]);if(_0xd67275)return _0xd67275;const _0x171891=_0x44792b[_0x6ec817(0xfe)][_0x6ec817(0xdf)](/showtopic[=\/](\d+)/i);return _0x171891?_0x171891[0x1]:'';}function _0x3ec282(_0x4d23e3){const _0x30ffe0=_0x3d1b52,_0x5db0c6=_0x4d23e3['searchParams'][_0x30ffe0(0xfc)]('st');if(!_0x5db0c6)return 0x0;const _0x515106=_0x428607['ZXyCT'](parseInt,_0x5db0c6,0xa);return Number['isFinite'](_0x515106)?_0x515106:0x0;}function _0x6f238a(_0x2c237c){const _0x45c754=_0x3d1b52,_0x245be6=_0x428607[_0x45c754(0x104)](_0x124f8a,_0x2c237c);if(_0x245be6){const _0x55c090=_0x245be6['querySelector'](_0x428607[_0x45c754(0x106)]);if(_0x55c090){const _0x184fec=_0x55c090['textContent'][_0x45c754(0xdf)](/\b\d+-\d+-\d+\b/);if(_0x184fec)return _0x428607[_0x45c754(0x116)](_0x428607['PkuFk'],_0x184fec[0x0]);}const _0x7ada8d=_0x245be6[_0x45c754(0xdd)](_0x428607[_0x45c754(0xde)]);if(_0x7ada8d){const _0x2bf08d=_0x7ada8d[_0x45c754(0x103)](_0x428607['phCuL'])||'',_0x4453cc=_0x2bf08d[_0x45c754(0xdf)](/[?&]showuser=(\d+)/i);if(_0x4453cc)return _0x45c754(0xd2)+_0x4453cc[0x1];return _0x428607[_0x45c754(0x101)](_0x428607[_0x45c754(0xc3)],_0x2bf08d[_0x45c754(0xe9)]());}}return null;}function _0x124f8a(_0x9d661d){const _0x1dd04f=_0x3d1b52;let _0x129772=_0x9d661d;while(_0x129772&&_0x428607[_0x1dd04f(0xdb)](_0x129772,document[_0x1dd04f(0x109)])){if(_0x129772['querySelector']&&(_0x129772[_0x1dd04f(0xdd)](_0x428607[_0x1dd04f(0x106)])||_0x129772['querySelector'](_0x428607[_0x1dd04f(0xde)])))return _0x129772;_0x129772=_0x129772[_0x1dd04f(0xe0)];}return null;}function _0x27bf74(_0x162ce0){const _0x313bdf=_0x3d1b52;if(!_0x162ce0)return'';try{const _0x339a98=new URL(_0x162ce0,window[_0x313bdf(0xf2)][_0x313bdf(0xfe)]);return _0x339a98[_0x313bdf(0x10a)]='',_0x339a98['href'][_0x313bdf(0xd1)](/\/$/,'');}catch(_0x4e6ec9){return _0x428607[_0x313bdf(0x10d)](String,_0x162ce0)[_0x313bdf(0xe9)]()[_0x313bdf(0xd1)](/\/$/,'');}}}));function _0x5381(){const _0x448cab=['length','warn','Outfit','niwwY','\x20changed\x20since\x20this\x20character\x27s\x20previous\x20post.','text','.fpost-outfit\x20a','classList','title','pYbXL','profile-link:','wYkqb','from','15169fyhALq','querySelectorAll','outfit','addEventListener','replace','user-id:','.archiveseal','same-origin','adEhA','YaXEv','root','ZLuDR','file-id:','5768jjTHBS','BBJPW','.fpost-wrap,\x20.post-wrap','querySelector','srspT','match','parentElement','add','type','markChanges','37192fSZoBa','VGrbc','log','setAttribute','fpost-link-changed','trim','ownerKey','222LSdIHq','Failed\x20to\x20fetch\x20previous\x20page:\x20','seenByOwner','.fpost-music\x20a','kzWHt','push','XifxZ','location','YQMZC','Outfit/music\x20scanner\x20previous\x20page:','fDFiQ','dSEGw','Mood\x20music','CADlu','selector','bETAY','forEach','get','8886260dZcEdX','href','oZqAf','2394264hviqCk','tBPst','1550610chBnPB','getAttribute','jBKYV','start','xOfyZ','1758060lgMVTx','skXJE','body','hash','856833cdykUm','a[href*=\x27showtopic=\x27]','qokdI','WMxVc','QkfyH','status','DOMContentLoaded','ZORIV','333UZzJSU','template','parseFromString','Pufnt','njaJI'];_0x5381=function(){return _0x448cab;};return _0x5381();}
+document.addEventListener("DOMContentLoaded", function () {
+  requestAnimationFrame(function () {
+    markChangedPostingTemplateLinksAcrossPages();
+  });
+
+  async function markChangedPostingTemplateLinksAcrossPages() {
+    const seenByOwner = {};
+
+    /*
+      Step 1:
+      Seed known outfit/music/gear/transpo links from the
+      previous thread page.
+    */
+    const previousPageUrl = getPreviousThreadPageUrl();
+
+    console.log(
+      "Posting-template scanner previous page:",
+      previousPageUrl
+    );
+
+    if (previousPageUrl) {
+      try {
+        const previousDoc =
+          await fetchPageAsDocument(previousPageUrl);
+
+        scanTemplatesForLinks({
+          root: previousDoc,
+          seenByOwner: seenByOwner,
+          markChanges: false
+        });
+      } catch (error) {
+        console.warn(
+          "Could not scan previous thread page for posting-template changes:",
+          previousPageUrl,
+          error
+        );
+      }
+    }
+
+    /*
+      Step 2:
+      Scan current page and mark changes.
+    */
+    scanTemplatesForLinks({
+      root: document,
+      seenByOwner: seenByOwner,
+      markChanges: true
+    });
+  }
+
+
+  function scanTemplatesForLinks(config) {
+    const root = config.root;
+    const seenByOwner = config.seenByOwner;
+    const markChanges = config.markChanges;
+
+    const templates = Array.from(
+      root.querySelectorAll(".fpost-wrap, .post-wrap")
+    );
+
+    templates.forEach(function (template) {
+      const ownerKey = getOwnerKey(template);
+
+      if (!ownerKey) return;
+
+      if (!seenByOwner[ownerKey]) {
+        seenByOwner[ownerKey] = {
+          outfit: null,
+          music: null,
+          gear: null,
+          transpo: null
+        };
+      }
+
+      compareButton({
+        template: template,
+        ownerKey: ownerKey,
+        type: "music",
+        selector: ".fpost-music a",
+        iconClass: "ph-music-notes",
+        seenByOwner: seenByOwner,
+        markChanges: markChanges
+      });
+
+      compareButton({
+        template: template,
+        ownerKey: ownerKey,
+        type: "outfit",
+        selector: ".fpost-outfit a",
+	iconClass: "ph-coat-hanger",
+        seenByOwner: seenByOwner,
+        markChanges: markChanges
+      });
+
+  
+      compareButton({
+        template: template,
+        ownerKey: ownerKey,
+        type: "gear",
+        selector: ".fpost-gear a",
+        iconClass: "ph-suitcase-rolling",
+        seenByOwner: seenByOwner,
+        markChanges: markChanges
+      });
+
+      compareButton({
+        template: template,
+        ownerKey: ownerKey,
+        type: "transpo",
+        selector: ".fpost-transpo a",
+        iconClass: "ph-motorcycle",
+        seenByOwner: seenByOwner,
+        markChanges: markChanges
+      });
+    });
+  }
+
+
+  function compareButton(config) {
+    const links =
+      Array.from(
+        config.template.querySelectorAll(config.selector)
+      );
+
+    let link = null;
+
+    if (config.iconClass) {
+      link = links.find(function (candidate) {
+        return Boolean(
+          candidate.querySelector(
+            "." + config.iconClass
+          )
+        );
+      });
+    } else {
+      link = links[0] || null;
+    }
+
+    if (!link) return;
+
+    const currentUrl =
+      normalizeUrl(link.href);
+
+    if (!currentUrl) return;
+
+    const previousUrl =
+      config.seenByOwner[
+        config.ownerKey
+      ][config.type];
+
+    if (
+      config.markChanges &&
+      previousUrl &&
+      previousUrl !== currentUrl
+    ) {
+      markAsChanged(
+        link,
+        config.type
+      );
+    }
+
+    config.seenByOwner[
+      config.ownerKey
+    ][config.type] = currentUrl;
+  }
+
+
+  function markAsChanged(link, type) {
+    const labels = {
+      outfit: "Outfit",
+      music: "Mood music",
+      gear: "Gear",
+      transpo: "Transportation"
+    };
+
+    const label =
+      labels[type] || "Posting template control";
+
+    link.classList.add(
+      "fpost-link-changed"
+    );
+
+    link.dataset.changedType =
+      type;
+
+    link.setAttribute(
+      "title",
+      label +
+      " changed since this character's previous post."
+    );
+
+    link.setAttribute(
+      "aria-label",
+      label +
+      " changed since this character's previous post."
+    );
+  }
+
+
+  async function fetchPageAsDocument(url) {
+    const response =
+      await fetch(url, {
+        credentials: "same-origin"
+      });
+
+    if (!response.ok) {
+      throw new Error(
+        "Failed to fetch previous page: " +
+        response.status
+      );
+    }
+
+    const html =
+      await response.text();
+
+    return new DOMParser()
+      .parseFromString(
+        html,
+        "text/html"
+      );
+  }
+
+
+  function getPreviousThreadPageUrl() {
+    const currentUrl =
+      new URL(window.location.href);
+
+    const currentTopicId =
+      getTopicId(currentUrl);
+
+    const currentStart =
+      getStartValue(currentUrl);
+
+    if (currentStart <= 0) {
+      return null;
+    }
+
+    const pageLinks =
+      Array.from(
+        document.querySelectorAll(
+          "a[href*='showtopic=']"
+        )
+      );
+
+    const candidates = [];
+
+    pageLinks.forEach(function (link) {
+      let linkUrl;
+
+      try {
+        linkUrl =
+          new URL(
+            link.href,
+            window.location.href
+          );
+      } catch (e) {
+        return;
+      }
+
+      const linkTopicId =
+        getTopicId(linkUrl);
+
+      if (
+        currentTopicId &&
+        linkTopicId &&
+        currentTopicId !== linkTopicId
+      ) {
+        return;
+      }
+
+      const linkStart =
+        getStartValue(linkUrl);
+
+      if (
+        linkStart < currentStart
+      ) {
+        candidates.push({
+          href: linkUrl.href,
+          start: linkStart
+        });
+      }
+    });
+
+    if (candidates.length) {
+      candidates.sort(function (a, b) {
+        return b.start - a.start;
+      });
+
+      return candidates[0].href;
+    }
+
+    return null;
+  }
+
+
+  function getTopicId(url) {
+    const topicFromSearch =
+      url.searchParams.get(
+        "showtopic"
+      );
+
+    if (topicFromSearch) {
+      return topicFromSearch;
+    }
+
+    const match =
+      url.href.match(
+        /showtopic[=\/](\d+)/i
+      );
+
+    return match
+      ? match[1]
+      : "";
+  }
+
+
+  function getStartValue(url) {
+    const start =
+      url.searchParams.get(
+        "start"
+      );
+
+    const parsed =
+      Number(start);
+
+    return Number.isFinite(parsed)
+      ? parsed
+      : 0;
+  }
+
+
+  function getOwnerKey(template) {
+    const postShell =
+      findAncestorWithOwnerInfo(
+        template
+      );
+
+    if (postShell) {
+      const archiveSeal =
+        postShell.querySelector(
+          ".archiveseal"
+        );
+
+      if (archiveSeal) {
+        const fileIdMatch =
+          archiveSeal.textContent.match(
+            /\b\d+-\d+-\d+\b/
+          );
+
+        if (fileIdMatch) {
+          return (
+            "file-id:" +
+            fileIdMatch[0]
+          );
+        }
+      }
+
+      const nameLink =
+        postShell.querySelector(
+          ".p-postname a[href]"
+        );
+
+      if (nameLink) {
+        const href =
+          nameLink.getAttribute(
+            "href"
+          ) || "";
+
+        const userMatch =
+          href.match(
+            /[?&]showuser=(\d+)/i
+          );
+
+        if (userMatch) {
+          return (
+            "user-id:" +
+            userMatch[1]
+          );
+        }
+
+        return (
+          "profile-link:" +
+          href.trim()
+        );
+      }
+    }
+
+    return null;
+  }
+
+
+  function findAncestorWithOwnerInfo(startEl) {
+    let node = startEl;
+
+    while (
+      node &&
+      node !== document.body
+    ) {
+      if (
+        node.querySelector &&
+        (
+          node.querySelector(
+            ".archiveseal"
+          ) ||
+          node.querySelector(
+            ".p-postname a[href]"
+          )
+        )
+      ) {
+        return node;
+      }
+
+      node =
+        node.parentElement;
+    }
+
+    return null;
+  }
+
+
+  function normalizeUrl(url) {
+    if (!url) return "";
+
+    try {
+      const parsed =
+        new URL(
+          url,
+          window.location.href
+        );
+
+      parsed.hash = "";
+
+      return parsed.href
+        .replace(/\/$/, "");
+    } catch (e) {
+      return String(url)
+        .trim()
+        .replace(/\/$/, "");
+    }
+  }
+});
