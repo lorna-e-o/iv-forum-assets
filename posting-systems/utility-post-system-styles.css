@@ -1,8 +1,3 @@
-/* =========================================================
-   IV POST-FANCY POST PLUGIN SYSTEM
-   UPDATED v2
-   =========================================================
-
 /* =========================================
    MINIMAL / HEADERLESS POST
    ========================================= */
@@ -68,7 +63,6 @@
   scrollbar-color: rgba(var(--emphasis), 1) var(--shade3);
 }
 
-
 /* =========================================
    FANCY POST TEMPLATE / HEADER ENHANCEMENTS
    ========================================= */
@@ -129,11 +123,13 @@
   transition: opacity .25s ease;
 }
 
+
 .fpost-wrap > .fpost-image:hover .fpost-overlay {
   opacity: 1;
   pointer-events: auto;
 }
 
+/* only do fade reveal when overlay content actually exists */
 .fpost-wrap.has-fpost-overlay > .fpost-image:hover > a {
   opacity: 0;
   pointer-events: none;
@@ -145,6 +141,9 @@
   pointer-events: auto;
 }
 
+
+
+/* if there is no overlay content, keep image static/normal */
 .fpost-wrap:not(.has-fpost-overlay) > .fpost-image > a {
   transition: transform .15s ease;
 }
@@ -160,26 +159,33 @@
 
 /* =========================================================
    POST TEMPLATE CONTROL STRIP
-   LOCATION / PERSONS / MUSIC / OUTFIT / GEAR / NOTES / TRANSPO
+   LOCATION / PERSONS / MUSIC / OUTFIT
    ========================================================= */
+
+
+/* =========================
+   HEADERLESS POST CONTROL STRIP
+   ========================= */
 
 .post-wrap .post-topbar {
   margin: -2px auto -4px !important;
 }
 
+/* =========================
+   SHARED TOPBAR
+   ========================= */
+
 .fpost-wrap .fpost-topbar,
 .post-wrap .post-topbar {
-  width: fit-content;
-  max-width: min(100%, 430px);
+  max-width: 300px;
   margin: -19px auto -2px;
   padding: 6px 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
 
-  gap: 8px;
+  gap: 25px;
 
   border-radius: 10px;
   box-sizing: border-box;
@@ -202,25 +208,31 @@
     0 0 0 1px rgba(0,0,0,.14);
 }
 
+
+/* =========================
+   SHARED CONTROL WRAPPERS
+   ========================= */
+
 .fpost-wrap .fpost-topbar .fpost-music,
 .fpost-wrap .fpost-topbar .fpost-outfit,
 .fpost-wrap .fpost-topbar .fpost-gear,
 .fpost-wrap .fpost-topbar .fpost-transpo,
-.fpost-wrap .fpost-topbar .fpost-notes,
 .fpost-wrap .fpost-topbar .post-control-toggle,
 
 .post-wrap .post-topbar .fpost-music,
 .post-wrap .post-topbar .fpost-outfit,
 .post-wrap .post-topbar .fpost-gear,
 .post-wrap .post-topbar .fpost-transpo,
-.post-wrap .post-topbar .fpost-notes,
 .post-wrap .post-topbar .post-control-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
+
   margin: 0;
 }
+
+
+/* popup controls need positioning context */
 
 .fpost-wrap .fpost-topbar .post-control-toggle,
 .post-wrap .post-topbar .post-control-toggle {
@@ -228,22 +240,20 @@
 }
 
 
-/* =========================================================
+/* =========================
    SHARED CONTROL SURFACES
-   ========================================================= */
+   ========================= */
 
 .fpost-wrap .fpost-topbar .fpost-music a,
 .fpost-wrap .fpost-topbar .fpost-outfit a,
 .fpost-wrap .fpost-topbar .fpost-gear a,
 .fpost-wrap .fpost-topbar .fpost-transpo a,
-.fpost-wrap .fpost-topbar .fpost-notes a,
 .fpost-wrap .fpost-topbar .post-control-btn,
 
 .post-wrap .post-topbar .fpost-music a,
 .post-wrap .post-topbar .fpost-outfit a,
 .post-wrap .post-topbar .fpost-gear a,
 .post-wrap .post-topbar .fpost-transpo a,
-.post-wrap .post-topbar .fpost-notes a,
 .post-wrap .post-topbar .post-control-btn {
   appearance: none;
   -webkit-appearance: none;
@@ -290,11 +300,14 @@
     background .18s ease;
 }
 
+/* =========================
+   HOVER / OPEN
+   ========================= */
+
 .fpost-wrap .fpost-topbar .fpost-music a:hover,
 .fpost-wrap .fpost-topbar .fpost-outfit a:hover,
 .fpost-wrap .fpost-topbar .fpost-gear a:hover,
 .fpost-wrap .fpost-topbar .fpost-transpo a:hover,
-.fpost-wrap .fpost-topbar .fpost-notes a:hover,
 .fpost-wrap .fpost-topbar .post-control-btn:hover,
 .fpost-wrap .fpost-topbar .post-control-btn[aria-expanded="true"],
 
@@ -302,22 +315,30 @@
 .post-wrap .post-topbar .fpost-outfit a:hover,
 .post-wrap .post-topbar .fpost-gear a:hover,
 .post-wrap .post-topbar .fpost-transpo a:hover,
-.post-wrap .post-topbar .fpost-notes a:hover,
 .post-wrap .post-topbar .post-control-btn:hover,
 .post-wrap .post-topbar .post-control-btn[aria-expanded="true"] {
   opacity: 1;
-  border-top-color: rgba(var(--emphasis), .7);
-  border-bottom-color: rgba(var(--emphasis), .7);
+
+  border-top-color:
+    rgba(var(--emphasis), .7);
+
+  border-bottom-color:
+    rgba(var(--emphasis), .7);
+
   box-shadow:
     inset 0 0 6px rgba(255,255,255,.05),
     0 0 8px rgba(var(--playful-accent1), .17);
 }
 
+
+/* =========================
+   PRESSED / OPEN
+   ========================= */
+
 .fpost-wrap .fpost-topbar .fpost-music a:active,
 .fpost-wrap .fpost-topbar .fpost-outfit a:active,
 .fpost-wrap .fpost-topbar .fpost-gear a:active,
 .fpost-wrap .fpost-topbar .fpost-transpo a:active,
-.fpost-wrap .fpost-topbar .fpost-notes a:active,
 .fpost-wrap .fpost-topbar .post-control-btn:active,
 .fpost-wrap .fpost-topbar .post-control-btn[aria-expanded="true"],
 
@@ -325,7 +346,6 @@
 .post-wrap .post-topbar .fpost-outfit a:active,
 .post-wrap .post-topbar .fpost-gear a:active,
 .post-wrap .post-topbar .fpost-transpo a:active,
-.post-wrap .post-topbar .fpost-notes a:active,
 .post-wrap .post-topbar .post-control-btn:active,
 .post-wrap .post-topbar .post-control-btn[aria-expanded="true"] {
   box-shadow:
@@ -341,30 +361,38 @@
     url(texture.png);
 }
 
+
+/* =========================
+   SHARED ICONS
+   ========================= */
+
 .fpost-wrap .fpost-topbar .fpost-music i,
 .fpost-wrap .fpost-topbar .fpost-outfit i,
 .fpost-wrap .fpost-topbar .fpost-gear i,
 .fpost-wrap .fpost-topbar .fpost-transpo i,
-.fpost-wrap .fpost-topbar .fpost-notes i,
 .fpost-wrap .fpost-topbar .post-control-btn i,
 
 .post-wrap .post-topbar .fpost-music i,
 .post-wrap .post-topbar .fpost-outfit i,
 .post-wrap .post-topbar .fpost-gear i,
 .post-wrap .post-topbar .fpost-transpo i,
-.post-wrap .post-topbar .fpost-notes i,
 .post-wrap .post-topbar .post-control-btn i {
   font-size: 1.45rem;
   line-height: 1;
-  color: rgba(var(--playful-accent2), .89);
+
+  color:
+    rgba(var(--playful-accent2), .89);
+
   --ph-secondary-opacity: .32;
 }
+
+
+/* hover icon emphasis */
 
 .fpost-wrap .fpost-topbar .fpost-music a:hover i,
 .fpost-wrap .fpost-topbar .fpost-outfit a:hover i,
 .fpost-wrap .fpost-topbar .fpost-gear a:hover i,
 .fpost-wrap .fpost-topbar .fpost-transpo a:hover i,
-.fpost-wrap .fpost-topbar .fpost-notes a:hover i,
 .fpost-wrap .fpost-topbar .post-control-btn:hover i,
 .fpost-wrap .fpost-topbar .post-control-btn[aria-expanded="true"] i,
 
@@ -372,7 +400,6 @@
 .post-wrap .post-topbar .fpost-outfit a:hover i,
 .post-wrap .post-topbar .fpost-gear a:hover i,
 .post-wrap .post-topbar .fpost-transpo a:hover i,
-.post-wrap .post-topbar .fpost-notes a:hover i,
 .post-wrap .post-topbar .post-control-btn:hover i,
 .post-wrap .post-topbar .post-control-btn[aria-expanded="true"] i {
   --ph-secondary-opacity: .48;
@@ -387,9 +414,12 @@
 .fpost-wrap .fpost-topbar .post-control-pop,
 .post-wrap .post-topbar .post-control-pop {
   position: absolute;
+
   top: calc(100% + 10px);
   left: 50%;
+
   transform: translateX(-50%);
+
   z-index: 30;
 
   min-width: 320px;
@@ -404,11 +434,17 @@
   white-space: normal;
 
   background:
-    linear-gradient(rgba(0,0,0,.92), rgba(0,0,0,.88)),
+    linear-gradient(
+      rgba(0,0,0,.92),
+      rgba(0,0,0,.88)
+    ),
     url(texture.png);
 
-  border-top: 1px solid rgba(var(--emphasis), .5);
-  border-bottom: 1px solid rgba(var(--emphasis), .5);
+  border-top:
+    1px solid rgba(var(--emphasis), .5);
+
+  border-bottom:
+    1px solid rgba(var(--emphasis), .5);
 
   box-shadow:
     0 8px 20px rgba(0,0,0,.35),
@@ -417,91 +453,68 @@
   opacity: .98;
 }
 
+
+/* popup arrow */
+
 .fpost-wrap .fpost-topbar .post-control-pop::before,
 .post-wrap .post-topbar .post-control-pop::before {
   content: "";
+
   position: absolute;
+
   top: -8px;
   left: 50%;
+
   transform: translateX(-50%);
+
   width: 0;
   height: 0;
+
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-bottom: 8px solid rgba(0,0,0,.92);
 }
 
+
+/* popup heading */
+
 .fpost-wrap .post-control-pop__label,
 .post-wrap .post-control-pop__label {
   margin: 0 0 6px;
+
   font-family: "Kode Mono", monospace;
   font-size: .72rem;
   font-weight: 600;
+
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: rgba(var(--playful-accent2), .72);
+
+  color:
+    rgba(var(--playful-accent2), .72);
+
   opacity: .9;
 }
+
+
+/* popup value */
 
 .fpost-wrap .post-control-pop__value,
 .post-wrap .post-control-pop__value {
   font-size: 1.1rem;
   font-weight: lighter;
+
   font-family: "Kode Mono", monospace;
+
   letter-spacing: .08em;
   line-height: 1.55;
+
   font-variant-caps: small-caps;
 }
 
 
-/* =========================================================
-   NOTES POPUP
-   Slightly larger than meta/npcs.
-   Fixed max height prevents the container from growing
-   indefinitely; overflow creates the scrollbar.
-   ========================================================= */
-
-.fpost-wrap .fpost-topbar .notes-pop,
-.post-wrap .post-topbar .notes-pop {
-  min-width: 360px;
-  max-width: 430px;
-  max-height: 330px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 15px 17px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop .post-control-pop__value,
-.post-wrap .post-topbar .notes-pop .post-control-pop__value {
-  font-size: 1.04rem;
-  line-height: 1.65;
-  letter-spacing: .045em;
-  font-variant-caps: normal;
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar {
-  width: 8px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-track,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-track {
-  background: rgba(0,0,0,.28);
-  border-radius: 5px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-thumb,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-thumb {
-  background: rgba(var(--emphasis), .72);
-  border-radius: 5px;
-}
-
-
-/* =========================================================
-   CHANGED OUTFIT / MUSIC / GEAR / TRANSPO MARKER
-   ========================================================= */
+/* =========================
+   Changed outfit/music marker
+   ========================= */
 
 .fpost-topbar .fpost-music a,
 .fpost-topbar .fpost-outfit a,
@@ -544,24 +557,17 @@
   background: rgba(var(--playful-accent2), .95);
 }
 
-.fpost-link-changed[data-changed-type="gear"]::after {
-  background: rgba(var(--emphasis), .95);
-}
 
-.fpost-link-changed[data-changed-type="transpo"]::after {
-  background: rgba(var(--playful-accent2), .95);
-}
-
-
-/* =========================================================
+/* =========================
    META TOGGLE / POPUP
-   ========================================================= */
+   ========================= */
 
 .fpost-wrap .fpost-topbar .meta-toggle,
 .post-wrap .post-topbar .meta-toggle {
   position: relative;
 }
 
+/* popup box */
 .fpost-wrap .fpost-topbar .meta-pop,
 .post-wrap .post-topbar .meta-pop {
   position: absolute;
@@ -569,7 +575,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 30;
-  min-width: 320px;
+   min-width: 320px;
   max-width: 350px;
   padding: 12px 14px;
   border-radius: 10px;
@@ -587,6 +593,7 @@
   opacity: .98;
 }
 
+/* arrow */
 .fpost-wrap .fpost-topbar .meta-pop::before,
 .post-wrap .post-topbar .meta-pop::before {
   content: "";
@@ -601,6 +608,7 @@
   border-bottom: 8px solid rgba(0,0,0,.92);
 }
 
+/* meta text inside popup */
 .fpost-wrap .fpost-topbar .fpost-meta-pop,
 .post-wrap .post-topbar .post-meta-pop {
   font-size: 1.1rem;
@@ -613,31 +621,91 @@
 
 
 /* =========================================================
-   RAW BBCode FALLBACK
+   NOTES TOGGLE / POPUP
+   Same control/button styling as META / NPCS;
+   custom popup dimensions and typography.
    ========================================================= */
 
-.fpost-body .post-meta,
-.fpost-body .post-npcs,
-.post-body .post-meta,
-.post-body .post-npcs {
-  text-align: left !important;
-  width: fit-content;
-  margin: 0 0 15px;
-  padding: 0;
-  opacity: .7;
-  font-family: var(--font-lexend);
-  font-size: 1rem;
-  font-weight: lighter;
-  letter-spacing: .08em;
-  font-variant-caps: small-caps;
-  border-top: 3px double rgb(var(--emphasis));
-  border-bottom: 3px double rgb(var(--emphasis));
+.fpost-wrap .fpost-topbar .notes-toggle,
+.post-wrap .post-topbar .notes-toggle {
+  position: relative;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop,
+.post-wrap .post-topbar .notes-pop {
+  min-width: 360px;
+  max-width: 430px;
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 15px 17px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop .post-control-pop__value,
+.post-wrap .post-topbar .notes-pop .post-control-pop__value {
+  font-size: 1.04rem;
+  line-height: 1.65;
+  letter-spacing: .045em;
+  font-variant-caps: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-track,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.28);
+  border-radius: 5px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-thumb,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-thumb {
+  background: rgba(var(--emphasis), .72);
+  border-radius: 5px;
 }
 
 
 /* =========================================================
-   QUOTE IN OVERLAY
+   RAW BBCode FALLBACK
+   Normally relocated into the topbar by JS.
    ========================================================= */
+
+.fpost-body .post-meta,
+.fpost-body .post-npcs,
+.fpost-body .post-notes,
+.post-body .post-meta,
+.post-body .post-npcs,
+.post-body .post-notes {
+  text-align: left !important;
+
+  width: fit-content;
+
+  margin: 0 0 15px;
+  padding: 0;
+
+  opacity: .7;
+
+  font-family: var(--font-lexend);
+  font-size: 1rem;
+  font-weight: lighter;
+
+  letter-spacing: .08em;
+  font-variant-caps: small-caps;
+
+  border-top:
+    3px double rgb(var(--emphasis));
+
+  border-bottom:
+    3px double rgb(var(--emphasis));
+}
+
+/* =========================
+   QUOTE IN OVERLAY
+   ========================= */
 
 .fpost-wrap .fpost-overlay .fpost-qtop {
   position: relative;
@@ -683,6 +751,11 @@
   bottom: 6px;
 }
 
+/* =========================
+   HEADER QUOTE SIGNAL (FRAME)
+   ========================= */
+
+/* only when qtop exists */
 .fpost-wrap:has(.fpost-qtop) {
   position: relative;
 }
@@ -692,40 +765,52 @@
   position: absolute;
   top: 8px;
   right: 12px;
+
   width: 24px;
   height: 24px;
+
   background-image: url("https://files.jcink.net/uploads2/infinitevariation/Effects/quote_signal.svg");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 1;
-  pointer-events: none;
+
+opacity: 1;
+pointer-events: none;
   z-index: 3;
+
 }
 
+/* subtle inset frame */
 .fpost-wrap > .fpost-image:has(.fpost-qtop)::before {
   content: "";
   position: absolute;
   inset: 0;
+
   pointer-events: none;
   z-index: 2;
+
+  /* this creates a faint inner frame WITHOUT resizing anything */
   box-shadow:
-    inset 0 1px 0 rgba(var(--accent1), 0.5),
-    inset 0 -1px 0 rgba(var(--accent1), 0.5);
+   inset 0 1px 0 rgba(var(--accent1), 0.5),
+  inset 0 -1px 0 rgba(var(--accent1), 0.5);
+
   border-radius: inherit;
+
   opacity: 0.6;
   transition: opacity .2s ease;
+ 
 }
 
+/* optional: slight hover reinforcement */
 .fpost-wrap > .fpost-image:has(.fpost-qtop):hover::before {
   opacity: .9;
-  filter: brightness(1.95);
+filter: brightness(1.95);
 }
 
 
 /* =========================================
    SHARED ADD-ONS
+   Works inside BOTH .fpost-body and .post-body
    ========================================= */
-
 .fheader1 {
   display: block;
   font-family: "Protest Revolution", sans-serif;
@@ -733,15 +818,17 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
-  background: linear-gradient(
-    90deg,
-    rgb(var(--accent1)),
-    rgb(var(--accent2))
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+
+background: linear-gradient(
+   90deg,
+   rgb(var(--accent1)),
+   rgb(var(--accent2))
+ );
+
+ background-clip:text;
+ -webkit-background-clip:text;
+ color:transparent;
+ -webkit-text-fill-color:transparent;
 }
 
 .fheader2 {
@@ -749,47 +836,94 @@
   font-family: "Revalia", sans-serif;
   font-size: 22px;
   margin-bottom: 8px;
-  background: linear-gradient(
-    90deg,
-    rgb(var(--emphasis)),
-    rgba(20,40,35,.65)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+
+background: linear-gradient(
+   90deg,
+   rgb(var(--emphasis)),
+   rgba(20,40,35,.65)
+ );
+
+ background-clip:text;
+ -webkit-background-clip:text;
+ color:transparent;
+ -webkit-text-fill-color:transparent;
 }
 
 .fheader3 {
   display: block;
   font-family: "Special Elite", system-ui;
   font-size: 18px;
-  opacity: .8;
+  opacity: 0.8;
   color: rgb(var(--accent1));
 }
 
+/* META */
+.fpost-body .post-meta,
+.post-body .post-meta {
+  text-align: left !important;
+  width: fit-content;
+  margin: 0 0 15px;
+  padding: 0;
+  opacity: .7;
+  font-family: var(--font-lexend);
+  font-size: 1rem;
+  font-weight: lighter;
+  letter-spacing: .08em;
+  font-variant-caps: small-caps;
+  border-top: 3px double rgb(var(--emphasis));
+  border-bottom: 3px double rgb(var(--emphasis));
+}
 
-/* =========================================
-   IMAGE ELEMENTS
-   ========================================= */
+/* SHARED FRAME */
+.fpost-body .structure-frame,
+.post-body .structure-frame {
+  max-width: 75%;
+  margin: 18px auto;
+  padding: 6px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background:
+    linear-gradient(rgba(0,0,0,.85), rgba(0,0,0,.85)),
+    url(texture.png);
+  border-top: 1px solid rgba(var(--accent1), .4);
+  border-bottom: 1px solid rgba(var(--accent1), .4);
+}
+
+/* LEFT / RIGHT IMAGE BLOCKS */
+.fpost-body .fpost-imgl,
+.post-body .fpost-imgl,
+.fpost-body .fpost-imgr,
+.post-body .fpost-imgr,
+.fpost-body .fpost-image,
+.post-body .fpost-image {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
 .fpost-body .fpost-imgl,
 .post-body .fpost-imgl {
   float: left;
-  margin: 10px 20px 14px 0;
+  margin-right: 20px;
 }
 
 .fpost-body .fpost-imgr,
 .post-body .fpost-imgr {
   float: right;
-  margin: 10px 0 14px 20px;
+  margin-left: 20px;
+}
+
+.fpost-body .fpost-image,
+.post-body .fpost-image {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .fpost-body .fpost-imgl a,
-.fpost-body .fpost-imgr a,
-.fpost-body .fpost-image a,
 .post-body .fpost-imgl a,
+.fpost-body .fpost-imgr a,
 .post-body .fpost-imgr a,
+.fpost-body .fpost-image a,
 .post-body .fpost-image a {
   display: inline-block;
   box-sizing: border-box;
@@ -842,6 +976,7 @@
   transform: scale(1.01);
 }
 
+/* IMAGE SIZE MODIFIERS */
 .fpost-body .fpost-imgl.is-wide img,
 .post-body .fpost-imgl.is-wide img,
 .fpost-body .fpost-imgr.is-wide img,
@@ -862,11 +997,7 @@
   height: auto;
 }
 
-
-/* =========================================
-   IMAGE GRID
-   ========================================= */
-
+/* IMAGE GRID */
 .fpost-body .fpost-imggrid,
 .post-body .fpost-imggrid {
   display: grid;
@@ -893,24 +1024,72 @@
   object-fit: cover;
 }
 
-.fpost-body .fpost-imggrid.layout-1,
-.post-body .fpost-imggrid.layout-1 {
-  grid-template-columns: 1fr;
+.fpost-body .fpost-imggrid a:hover,
+.post-body .fpost-imggrid a:hover {
+  transform: scale(1.03);
 }
 
-.fpost-body .fpost-imggrid.layout-2,
-.post-body .fpost-imggrid.layout-2 {
+/* DEFAULT SQUARE GRID */
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1 {
+  grid-template-columns: 1fr;
+  max-width: 300px;
+}
+
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-2,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.fpost-body .fpost-imggrid.layout-3,
-.post-body .fpost-imggrid.layout-3 {
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-3,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-3 {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.fpost-body .fpost-imggrid.layout-4,
-.post-body .fpost-imggrid.layout-4 {
-  grid-template-columns: repeat(4, 1fr);
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 400px;
+}
+
+/* square tiles by default */
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1 a,
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-2 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-2 a,
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-3 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-3 a,
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4 a {
+  aspect-ratio: 1 / 1;
+}
+
+/* hard cap for single square image */
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-1 a {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+/* 4-image grid = 400 x 400 total footprint */
+.fpost-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4 a,
+.post-body .fpost-imggrid:not(.tall-row):not(.wide-stack).layout-4 a {
+  width: 100%;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+
+/* TALL ROW */
+.fpost-body .fpost-imggrid.tall-row.layout-1,
+.post-body .fpost-imggrid.tall-row.layout-1 {
+  grid-template-columns: 1fr;
+  max-width: 250px;
+}
+
+.fpost-body .fpost-imggrid.tall-row.layout-2,
+.post-body .fpost-imggrid.tall-row.layout-2 {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .fpost-body .fpost-imggrid.tall-row.layout-3,
@@ -919,7 +1098,10 @@
 }
 
 .fpost-body .fpost-imggrid.tall-row.layout-1 a,
-.post-body .fpost-imggrid.tall-row.layout-1 a,
+.post-body .fpost-imggrid.tall-row.layout-1 a {
+  height: 360px;
+}
+
 .fpost-body .fpost-imggrid.tall-row.layout-2 a,
 .post-body .fpost-imggrid.tall-row.layout-2 a,
 .fpost-body .fpost-imggrid.tall-row.layout-3 a,
@@ -936,14 +1118,11 @@
 .post-body .fpost-imggrid.tall-row img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* or contain */
 }
 
 
-/* =========================================
-   WIDE STACK
-   ========================================= */
-
+/* WIDE STACK */
 .fpost-body .fpost-imggrid.wide-stack,
 .post-body .fpost-imggrid.wide-stack {
   display: grid;
@@ -983,11 +1162,7 @@
   object-fit: contain;
 }
 
-
-/* =========================================
-   QUOTE BLOCKS
-   ========================================= */
-
+/* QUOTE BLOCKS */
 .fpost-body .fpost-qtop,
 .post-body .fpost-qtop,
 .fpost-body .fpost-qbot,
@@ -995,7 +1170,7 @@
   position: relative;
   max-width: min(88%, 520px);
   margin: 26px auto;
-  padding:
+padding:
     clamp(14px, 2.5vw, 24px)
     clamp(24px, 4vw, 40px);
   border-radius: 14px;
@@ -1011,7 +1186,7 @@
   line-height: 1.55;
   opacity: .94;
   box-sizing: border-box;
-  transition: opacity .22s ease;
+transition: opacity .22s ease;
 }
 
 .fpost-body .fpost-qtop::before,
@@ -1022,11 +1197,12 @@
 .post-body .fpost-qbot::before,
 .fpost-body .fpost-qbot::after,
 .post-body .fpost-qbot::after {
-  position: absolute;
+   position: absolute;
   font-family: "Nabla", system-ui;
   font-size: 2.4rem;
   opacity: .75;
   pointer-events: none;
+  transition: transform .3s ease, opacity .3s ease;
 }
 
 .fpost-body .fpost-qtop:hover::before,
@@ -1061,6 +1237,7 @@
   bottom: 6px;
 }
 
+/* PULL QUOTE */
 .fpost-body .fpost-pull,
 .post-body .fpost-pull {
   position: relative;
@@ -1098,74 +1275,10 @@
   opacity: .35;
 }
 
-
-/* =========================================
-   OPTIONAL CLEARFIX
-   ========================================= */
-
+/* OPTIONAL CLEARFIX */
 .fpost-body::after,
 .post-body::after {
   content: "";
   display: block;
   clear: both;
-}
-
-
-/* =========================================
-   RESPONSIVE TOPBAR
-   ========================================= */
-
-@media (max-width: 520px) {
-  .fpost-wrap .fpost-topbar,
-  .post-wrap .post-topbar {
-    max-width: calc(100% - 10px);
-    gap: 6px;
-    padding-right: 7px;
-    padding-left: 7px;
-  }
-
-  .fpost-wrap .fpost-topbar .fpost-music a,
-  .fpost-wrap .fpost-topbar .fpost-outfit a,
-  .fpost-wrap .fpost-topbar .fpost-gear a,
-  .fpost-wrap .fpost-topbar .fpost-transpo a,
-  .fpost-wrap .fpost-topbar .fpost-notes a,
-  .fpost-wrap .fpost-topbar .post-control-btn,
-  .post-wrap .post-topbar .fpost-music a,
-  .post-wrap .post-topbar .fpost-outfit a,
-  .post-wrap .post-topbar .fpost-gear a,
-  .post-wrap .post-topbar .fpost-transpo a,
-  .post-wrap .post-topbar .fpost-notes a,
-  .post-wrap .post-topbar .post-control-btn {
-    width: 42px;
-    height: 31px;
-  }
-
-  .fpost-wrap .fpost-topbar .fpost-music i,
-  .fpost-wrap .fpost-topbar .fpost-outfit i,
-  .fpost-wrap .fpost-topbar .fpost-gear i,
-  .fpost-wrap .fpost-topbar .fpost-transpo i,
-  .fpost-wrap .fpost-topbar .fpost-notes i,
-  .fpost-wrap .fpost-topbar .post-control-btn i,
-  .post-wrap .post-topbar .fpost-music i,
-  .post-wrap .post-topbar .fpost-outfit i,
-  .post-wrap .post-topbar .fpost-gear i,
-  .post-wrap .post-topbar .fpost-transpo i,
-  .post-wrap .post-topbar .fpost-notes i,
-  .post-wrap .post-topbar .post-control-btn i {
-    font-size: 1.3rem;
-  }
-
-  .fpost-wrap .fpost-topbar .meta-pop,
-  .post-wrap .post-topbar .meta-pop,
-  .fpost-wrap .fpost-topbar .post-control-pop,
-  .post-wrap .post-topbar .post-control-pop {
-    min-width: 0;
-    width: min(350px, calc(100vw - 24px));
-  }
-
-  .fpost-wrap .fpost-topbar .notes-pop,
-  .post-wrap .post-topbar .notes-pop {
-    width: min(430px, calc(100vw - 24px));
-    max-height: min(330px, 60vh);
-  }
 }
