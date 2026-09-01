@@ -271,11 +271,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /*
-    Notes are deliberately a popup rather than an external link.
-    The supplied [notes] markup uses the same .fpost-music wrapper
-    as the other new controls, so the icon identifies it.
-  */
   function buildNotesToggle(
     rawValue,
     idSeed
@@ -308,175 +303,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-
-  /*
-    Gear and transportation remain ordinary external image
-    links. They are not popup controls.
-  */
-  function isIconLink(
-    element,
-    iconClass
-  ) {
-    return Boolean(
-      element &&
-      element.querySelector(
-        "." + iconClass
-      )
-    );
-  }
-
-
-  function classifyPluginElement(
-    element
-  ) {
-    if (
-      isIconLink(
-        element,
-        "ph-suitcase-rolling"
-      )
-    ) {
-      return "gear";
-    }
-
-    if (
-      isIconLink(
-        element,
-        "ph-motorcycle"
-      )
-    ) {
-      return "transpo";
-    }
-
-    if (
-      isIconLink(
-        element,
-        "ph-notepad"
-      )
-    ) {
-      return "notes";
-    }
-
-    return null;
-  }
-
-
-  /*
-    Reclassify the supplied generic .fpost-music wrapper
-    without requiring a BBCode HTML change.
-  */
-  function normalizeNewPluginWrapper(
-    wrapper
-  ) {
-    const kind =
-      classifyPluginElement(wrapper);
-
-    if (!kind) {
-      return null;
-    }
-
-    wrapper.classList.remove(
-      "fpost-gear",
-      "fpost-transpo",
-      "fpost-notes"
-    );
-
-    wrapper.classList.add(
-      "fpost-" + kind
-    );
-
-    wrapper.dataset.ivPostPlugin =
-      kind;
-
-    return kind;
-  }
-
-
-  /*
-    The current [notes] HTML provided in the request places
-    PARAM1 in href and contains only the notepad icon.
-    To make the requested text popup possible without requiring
-    an HTML change, the JS uses:
-      1. data-notes / data-note / data-content when present;
-      2. anchor text when present;
-      3. the href as a final fallback.
-    This lets the same JS support a future cleaner [notes]
-    BBCode that places the actual note text in CONTENT.
-  */
-  function readNotesValue(
-    wrapper
-  ) {
-    const link =
-      wrapper.querySelector(
-        "a"
-      );
-
-    if (!link) {
-      return "";
-    }
-
-    const dataValue =
-      link.getAttribute(
-        "data-notes"
-      ) ||
-      link.getAttribute(
-        "data-note"
-      ) ||
-      link.getAttribute(
-        "data-content"
-      );
-
-    if (dataValue) {
-      return dataValue;
-    }
-
-    const text =
-      (link.textContent || "")
-        .replace(/\s+/g, " ")
-        .trim();
-
-    if (text) {
-      return text;
-    }
-
-    return link.getAttribute(
-      "href"
-    ) || "";
-  }
-
-
-  function buildNotesFromWrapper(
-    wrapper,
-    idSeed
-  ) {
-    const rawValue =
-      readNotesValue(wrapper);
-
-    if (!rawValue) {
-      return null;
-    }
-
-    const toggle =
-      buildNotesToggle(
-        escapeNotesHtml(rawValue),
-        idSeed
-      );
-
-    return toggle;
-  }
-
-
-  function escapeNotesHtml(
-    value
-  ) {
-    const div =
-      document.createElement("div");
-
-    div.textContent =
-      String(value || "");
-
-    return div.innerHTML
-      .replace(/\n/g, "<br>");
-  }
 
 
   function cleanupBodyLeadingSpace(
@@ -644,29 +470,29 @@ document.addEventListener("DOMContentLoaded", function () {
           outfit = child;
         }
 
-        if (
+         if (
           child.classList.contains(
             "fpost-music"
           )
         ) {
-          const kind =
-            normalizeNewPluginWrapper(
-              child
-            );
+          music = child;
+        }
 
-          if (kind === "gear") {
-            gear = child;
-          } else if (
-            kind === "transpo"
-          ) {
-            transpo = child;
-          } else if (
-            kind === "notes"
-          ) {
-            notes = child;
-          } else {
-            music = child;
-          }
+ if (
+          child.classList.contains(
+            "fpost-gear"
+          )
+        ) {
+          gear = child;
+        }
+
+
+ if (
+          child.classList.contains(
+            "fpost-transpo"
+          )
+        ) {
+          transpo = child;
         }
       });
 
@@ -710,29 +536,7 @@ document.addEventListener("DOMContentLoaded", function () {
         npcs.remove();
       }
 
-      /* EXISTING MUSIC */
-      if (music) {
-        topbar.appendChild(
-          music
-        );
-      }
-
-      /* EXISTING OUTFIT */
-      if (outfit) {
-        topbar.appendChild(
-          outfit
-        );
-      }
-
-      /* NEW GEAR */
-      if (gear) {
-        topbar.appendChild(
-          gear
-        );
-      }
-
-      /* NEW NOTES */
-      if (notes) {
+     if (notes) {
         const notesToggle =
           buildNotesFromWrapper(
             notes,
@@ -748,7 +552,28 @@ document.addEventListener("DOMContentLoaded", function () {
         notes.remove();
       }
 
-      /* NEW TRANSPORTATION */
+
+      if (music) {
+        topbar.appendChild(
+          music
+        );
+      }
+
+     
+      if (outfit) {
+        topbar.appendChild(
+          outfit
+        );
+      }
+
+   
+      if (gear) {
+        topbar.appendChild(
+          gear
+        );
+      }
+
+    
       if (transpo) {
         topbar.appendChild(
           transpo
@@ -882,6 +707,15 @@ document.addEventListener("DOMContentLoaded", function () {
           npcs = child;
         }
 
+if (
+          child.classList.contains(
+            "post-notes"
+          )
+        ) {
+          notes = child;
+        }
+
+
         if (
           child.classList.contains(
             "fpost-outfit"
@@ -895,24 +729,24 @@ document.addEventListener("DOMContentLoaded", function () {
             "fpost-music"
           )
         ) {
-          const kind =
-            normalizeNewPluginWrapper(
-              child
-            );
+          music = child;
+        }
 
-          if (kind === "gear") {
-            gear = child;
-          } else if (
-            kind === "transpo"
-          ) {
-            transpo = child;
-          } else if (
-            kind === "notes"
-          ) {
-            notes = child;
-          } else {
-            music = child;
-          }
+ if (
+          child.classList.contains(
+            "fpost-gear"
+          )
+        ) {
+          gear = child;
+        }
+
+
+ if (
+          child.classList.contains(
+            "fpost-transpo"
+          )
+        ) {
+          transpo = child;
         }
       });
 
@@ -950,6 +784,22 @@ document.addEventListener("DOMContentLoaded", function () {
         npcs.remove();
       }
 
+ if (notes) {
+        const notesToggle =
+          buildNotesFromWrapper(
+            notes,
+            "post-" + index
+          );
+
+        if (notesToggle) {
+          topbar.appendChild(
+            notesToggle
+          );
+        }
+
+        notes.remove();
+      }
+
       if (music) {
         topbar.appendChild(
           music
@@ -968,21 +818,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       }
 
-      if (notes) {
-        const notesToggle =
-          buildNotesFromWrapper(
-            notes,
-            "post-" + index
-          );
-
-        if (notesToggle) {
-          topbar.appendChild(
-            notesToggle
-          );
-        }
-
-        notes.remove();
-      }
 
       if (transpo) {
         topbar.appendChild(
@@ -1016,7 +851,5 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         closePostControlPopups();
       }
-    }
-  );
-
+    });
 });
