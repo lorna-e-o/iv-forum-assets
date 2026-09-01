@@ -159,7 +159,7 @@
 
 /* =========================================================
    POST TEMPLATE CONTROL STRIP
-   LOCATION / PERSONS / MUSIC / OUTFIT
+   LOCATION / PERSONS / MUSIC / OUTFIT / GEAR / TRANSPO / NOTES
    ========================================================= */
 
 
@@ -177,15 +177,17 @@
 
 .fpost-wrap .fpost-topbar,
 .post-wrap .post-topbar {
-  max-width: 300px;
+  width: fit-content;
+  max-width: min(100%, 430px);
   margin: -19px auto -2px;
   padding: 6px 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
 
-  gap: 25px;
+  gap: 8px;
 
   border-radius: 10px;
   box-sizing: border-box;
@@ -512,16 +514,62 @@
 }
 
 
+/* =========================================================
+   NOTES POPUP
+   Slightly larger than meta/npcs.
+   Fixed max height prevents the container from growing
+   indefinitely; overflow creates the scrollbar.
+   ========================================================= */
+
+.fpost-wrap .fpost-topbar .notes-pop,
+.post-wrap .post-topbar .notes-pop {
+  min-width: 360px;
+  max-width: 430px;
+  max-height: 330px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 15px 17px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop .post-control-pop__value,
+.post-wrap .post-topbar .notes-pop .post-control-pop__value {
+  font-size: 1.04rem;
+  line-height: 1.65;
+  letter-spacing: .045em;
+  font-variant-caps: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-track,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.28);
+  border-radius: 5px;
+}
+
+.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-thumb,
+.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-thumb {
+  background: rgba(var(--emphasis), .72);
+  border-radius: 5px;
+}
+
+
+
 /* =========================
    Changed outfit/music marker
    ========================= */
 
 .fpost-topbar .fpost-music a,
 .fpost-topbar .fpost-outfit a,
-.fpost-topbar .fpost-gear a,
-.fpost-topbar .fpost-transpo a,
 .post-topbar .fpost-music a,
 .post-topbar .fpost-outfit a,
+.fpost-topbar .fpost-gear a,
+.fpost-topbar .fpost-transpo a,
 .post-topbar .fpost-gear a,
 .post-topbar .fpost-transpo a {
   position: relative;
@@ -529,10 +577,10 @@
 
 .fpost-topbar .fpost-music a.fpost-link-changed::after,
 .fpost-topbar .fpost-outfit a.fpost-link-changed::after,
+.post-topbar .fpost-music a.fpost-link-changed::after,
+.post-topbar .fpost-outfit a.fpost-link-changed::after, 
 .fpost-topbar .fpost-gear a.fpost-link-changed::after,
 .fpost-topbar .fpost-transpo a.fpost-link-changed::after,
-.post-topbar .fpost-music a.fpost-link-changed::after,
-.post-topbar .fpost-outfit a.fpost-link-changed::after,
 .post-topbar .fpost-gear a.fpost-link-changed::after,
 .post-topbar .fpost-transpo a.fpost-link-changed::after {
   content: "";
@@ -555,6 +603,14 @@
 
 .fpost-link-changed[data-changed-type="music"]::after {
   background: rgba(var(--playful-accent2), .95);
+}
+
+.fpost-link-changed[data-changed-type="gear"]::after {
+  background: rgba(var(--playful-accent1), .95);
+}
+
+.fpost-link-changed[data-changed-type="transpo"]::after {
+  background: rgba(var(--playful-accent1), .95);
 }
 
 
@@ -617,55 +673,6 @@
   letter-spacing: .08em;
   line-height: 1.55;
   font-variant-caps: small-caps;
-}
-
-
-/* =========================================================
-   NOTES TOGGLE / POPUP
-   Same control/button styling as META / NPCS;
-   custom popup dimensions and typography.
-   ========================================================= */
-
-.fpost-wrap .fpost-topbar .notes-toggle,
-.post-wrap .post-topbar .notes-toggle {
-  position: relative;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop,
-.post-wrap .post-topbar .notes-pop {
-  min-width: 360px;
-  max-width: 430px;
-  max-height: 330px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 15px 17px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop .post-control-pop__value,
-.post-wrap .post-topbar .notes-pop .post-control-pop__value {
-  font-size: 1.04rem;
-  line-height: 1.65;
-  letter-spacing: .045em;
-  font-variant-caps: normal;
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar {
-  width: 8px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-track,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-track {
-  background: rgba(0,0,0,.28);
-  border-radius: 5px;
-}
-
-.fpost-wrap .fpost-topbar .notes-pop::-webkit-scrollbar-thumb,
-.post-wrap .post-topbar .notes-pop::-webkit-scrollbar-thumb {
-  background: rgba(var(--emphasis), .72);
-  border-radius: 5px;
 }
 
 
@@ -857,9 +864,13 @@ background: linear-gradient(
   color: rgb(var(--accent1));
 }
 
-/* META */
+/* META / NPCS / NOTES */
 .fpost-body .post-meta,
-.post-body .post-meta {
+.post-body .post-meta, 
+.fpost-body .post-npcs,
+.post-body .post-npcs, 
+.fpost-body .post-notes,
+.post-body .post-notes {
   text-align: left !important;
   width: fit-content;
   margin: 0 0 15px;
