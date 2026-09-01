@@ -224,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let qTop = null;
     let outfit = null;
     let music = null;
+    let gear = null;
+    let transpo = null;
 
     Array.from(body.children).forEach(function(child) {
       if (child.classList.contains("post-meta")) {
@@ -244,6 +246,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (child.classList.contains("fpost-music")) {
         music = child;
+      }
+       if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+       if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
       }
     });
 
@@ -291,6 +299,14 @@ document.addEventListener("DOMContentLoaded", function () {
       topbar.appendChild(outfit);
     }
 
+   if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
+    }
+
     if (!overlay.children.length) {
       overlay.remove();
       post.classList.remove("has-fpost-overlay");
@@ -336,6 +352,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let npcs = null;
     let outfit = null;
     let music = null;
+       let gear = null;
+    let transpo = null;
 
     Array.from(body.children).forEach(function(child) {
       if (child.classList.contains("post-meta")) {
@@ -352,6 +370,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (child.classList.contains("fpost-music")) {
         music = child;
+      }
+
+      if (child.classList.contains("fpost-gear")) {
+        gear = child;
+      }
+
+      if (child.classList.contains("fpost-transpo")) {
+        transpo = child;
       }
     });
 
@@ -393,6 +419,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (outfit) {
       topbar.appendChild(outfit);
+    }
+
+  if (gear) {
+      topbar.appendChild(gear);
+    }
+
+    if (transpo) {
+      topbar.appendChild(transpo);
     }
 
     if (!topbar.children.length) {
