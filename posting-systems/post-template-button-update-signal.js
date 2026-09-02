@@ -6,41 +6,58 @@ document.addEventListener("DOMContentLoaded", function () {
   async function markChangedPostingTemplateLinksAcrossPages() {
     const seenByOwner = {};
 
-    /*
-      Step 1:
-      Seed known outfit/music/gear/transpo links from the
-      previous thread page.
-    */
-    const previousPageUrl = getPreviousThreadPageUrl();
+
+    const historyPageUrls = getEarlierThreadPageUrls();
 
     console.log(
-      "Posting-template scanner previous page:",
-      previousPageUrl
+      "Posting-template scanner history pages:",
+      historyPageUrls
     );
 
-    if (previousPageUrl) {
+    if (historyPageUrls.length) {
       try {
-        const previousDoc =
-          await fetchPageAsDocument(previousPageUrl);
+        const historyDocs = await Promise.all(
+          historyPageUrls.map(function (url) {
+            return fetchPageAsDocument(url);
+          })
+        );
 
-        scanTemplatesForLinks({
-          root: previousDoc,
-          seenByOwner: seenByOwner,
-          markChanges: false
+        historyDocs.forEach(function (historyDoc) {
+          scanTemplatesForLinks({
+            root: historyDoc,
+            seenByOwner: seenByOwner,
+            markChanges: false
+          });
         });
       } catch (error) {
         console.warn(
-          "Could not scan previous thread page for posting-template changes:",
-          previousPageUrl,
+          "Could not scan one or more earlier thread pages for posting-template changes:",
           error
         );
+
+  
+        for (let i = 0; i < historyPageUrls.length; i++) {
+          try {
+            const historyDoc =
+              await fetchPageAsDocument(historyPageUrls[i]);
+
+            scanTemplatesForLinks({
+              root: historyDoc,
+              seenByOwner: seenByOwner,
+              markChanges: false
+            });
+          } catch (pageError) {
+            console.warn(
+              "Skipping unavailable earlier thread page:",
+              historyPageUrls[i],
+              pageError
+            );
+          }
+        }
       }
     }
 
-    /*
-      Step 2:
-      Scan current page and mark changes.
-    */
+
     scanTemplatesForLinks({
       root: document,
       seenByOwner: seenByOwner,
@@ -87,18 +104,17 @@ document.addEventListener("DOMContentLoaded", function () {
         ownerKey: ownerKey,
         type: "outfit",
         selector: ".fpost-outfit a",
-	iconClass: "ph-coat-hanger",
+        iconClass: "ph-coat-hanger",
         seenByOwner: seenByOwner,
         markChanges: markChanges
       });
 
-  
       compareButton({
         template: template,
         ownerKey: ownerKey,
         type: "gear",
         selector: ".fpost-gear a",
-        iconClass: "ph-suitcase-rolling",
+        iconClass: "ph-treasure-chest",
         seenByOwner: seenByOwner,
         markChanges: markChanges
       });
@@ -200,12 +216,13 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchPageAsDocument(url) {
     const response =
       await fetch(url, {
-        credentials: "same-origin"
+        credentials: "same-origin",
+        cache: "no-store"
       });
 
     if (!response.ok) {
       throw new Error(
-        "Failed to fetch previous page: " +
+        "Failed to fetch thread page: " +
         response.status
       );
     }
@@ -221,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  function getPreviousThreadPageUrl() {
+  function getEarlierThreadPageUrls() {
     const currentUrl =
       new URL(window.location.href);
 
@@ -232,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
       getStartValue(currentUrl);
 
     if (currentStart <= 0) {
-      return null;
+      return [];
     }
 
     const pageLinks =
@@ -271,9 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const linkStart =
         getStartValue(linkUrl);
 
-      if (
-        linkStart < currentStart
-      ) {
+      if (linkStart < currentStart) {
         candidates.push({
           href: linkUrl.href,
           start: linkStart
@@ -281,15 +296,75 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    if (candidates.length) {
-      candidates.sort(function (a, b) {
-        return b.start - a.start;
-      });
 
-      return candidates[0].href;
+    const uniqueByStart = {};
+
+    candidates.forEach(function (candidate) {
+      uniqueByStart[candidate.start] =
+        candidate.href;
+    });
+
+    const starts =
+      Object.keys(uniqueByStart)
+        .map(function (value) {
+          return Number(value);
+        })
+        .filter(function (value) {
+          return Number.isFinite(value);
+        })
+        .sort(function (a, b) {
+          return a - b;
+        });
+
+
+    if (!Object.prototype.hasOwnProperty.call(uniqueByStart, "0")) {
+      uniqueByStart[0] =
+        buildThreadPageUrl(
+          currentUrl,
+          currentTopicId,
+          0
+        );
+
+      starts.unshift(0);
     }
 
-    return null;
+    return starts.map(function (start) {
+      return uniqueByStart[start];
+    });
+  }
+
+
+  function buildThreadPageUrl(
+    currentUrl,
+    topicId,
+    start
+  ) {
+    const url =
+      new URL(
+        currentUrl.href
+      );
+
+    if (topicId) {
+      url.searchParams.set(
+        "showtopic",
+        topicId
+      );
+    }
+
+    if (start > 0) {
+      url.searchParams.set(
+        "st",
+        String(start)
+      );
+    } else {
+      url.searchParams.delete(
+        "st"
+      );
+    }
+
+    url.hash = "";
+
+    return url.href;
   }
 
 
@@ -315,15 +390,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function getStartValue(url) {
-    const start =
+ 
+    const raw =
       url.searchParams.get(
-        "start"
+        "st"
       );
 
-    const parsed =
-      Number(start);
+    if (!raw) {
+      return 0;
+    }
 
-    return Number.isFinite(parsed)
+    const parsed =
+      parseInt(
+        raw,
+        10
+      );
+
+    return Number.isFinite(parsed) &&
+      parsed >= 0
       ? parsed
       : 0;
   }
@@ -419,7 +503,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function normalizeUrl(url) {
-    if (!url) return "";
+    if (!url) {
+      return "";
+    }
 
     try {
       const parsed =
@@ -431,11 +517,17 @@ document.addEventListener("DOMContentLoaded", function () {
       parsed.hash = "";
 
       return parsed.href
-        .replace(/\/$/, "");
+        .replace(
+          /\/$/,
+          ""
+        );
     } catch (e) {
       return String(url)
         .trim()
-        .replace(/\/$/, "");
+        .replace(
+          /\/$/,
+          ""
+        );
     }
   }
 });
