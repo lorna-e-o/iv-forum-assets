@@ -1,70 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
   requestAnimationFrame(function () {
-    markChangedPostingTemplateLinksAcrossPages();
+    markChangedPostTemplateLinksAcrossPages();
   });
 
-  async function markChangedPostingTemplateLinksAcrossPages() {
+  async function markChangedPostTemplateLinksAcrossPages() {
     const seenByOwner = {};
 
 
-    const historyPageUrls = getEarlierThreadPageUrls();
+    const previousPageUrl = getPreviousThreadPageUrl();
 
-    console.log(
-      "Posting-template scanner history pages:",
-      historyPageUrls
-    );
+    console.log("Post template scanner history pages:", previousPageUrl);
 
-    if (historyPageUrls.length) {
+    if (previousPageUrl) {
       try {
-        const historyDocs = await Promise.all(
-          historyPageUrls.map(function (url) {
-            return fetchPageAsDocument(url);
-          })
-        );
+        const previousDoc = await fetchPageAsDocument(previousPageUrl);
 
-        historyDocs.forEach(function (historyDoc) {
-          scanTemplatesForLinks({
-            root: historyDoc,
-            seenByOwner: seenByOwner,
-            markChanges: false
-          });
+    
+        scanTemplatesForLinks({
+          root: previousDoc,
+          seenByOwner: seenByOwner,
+          markChanges: false
         });
       } catch (error) {
         console.warn(
-          "Could not scan one or more earlier thread pages for posting-template changes:",
+          "Could not scan previous thread page for post template changes:",
+          previousPageUrl,
           error
         );
-
-  
-        for (let i = 0; i < historyPageUrls.length; i++) {
-          try {
-            const historyDoc =
-              await fetchPageAsDocument(historyPageUrls[i]);
-
-            scanTemplatesForLinks({
-              root: historyDoc,
-              seenByOwner: seenByOwner,
-              markChanges: false
-            });
-          } catch (pageError) {
-            console.warn(
-              "Skipping unavailable earlier thread page:",
-              historyPageUrls[i],
-              pageError
-            );
-          }
-        }
       }
     }
 
-
+ 
     scanTemplatesForLinks({
       root: document,
       seenByOwner: seenByOwner,
       markChanges: true
     });
   }
-
 
   function scanTemplatesForLinks(config) {
     const root = config.root;
@@ -77,14 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     templates.forEach(function (template) {
       const ownerKey = getOwnerKey(template);
-
       if (!ownerKey) return;
 
       if (!seenByOwner[ownerKey]) {
         seenByOwner[ownerKey] = {
           outfit: null,
           music: null,
-          gear: null,
+	   gear: null,
           transpo: null
         };
       }
@@ -94,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ownerKey: ownerKey,
         type: "music",
         selector: ".fpost-music a",
-        iconClass: "ph-music-notes",
+	iconClass: "ph-music-notes",
         seenByOwner: seenByOwner,
         markChanges: markChanges
       });
@@ -104,12 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
         ownerKey: ownerKey,
         type: "outfit",
         selector: ".fpost-outfit a",
-        iconClass: "ph-coat-hanger",
+	iconClass: "ph-coat-hanger",
         seenByOwner: seenByOwner,
         markChanges: markChanges
       });
 
-      compareButton({
+	 compareButton({
         template: template,
         ownerKey: ownerKey,
         type: "gear",
@@ -131,133 +102,74 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-
   function compareButton(config) {
-    const links =
-      Array.from(
-        config.template.querySelectorAll(config.selector)
-      );
-
-    let link = null;
-
-    if (config.iconClass) {
-      link = links.find(function (candidate) {
-        return Boolean(
-          candidate.querySelector(
-            "." + config.iconClass
-          )
-        );
-      });
-    } else {
-      link = links[0] || null;
-    }
-
+    const link = config.template.querySelector(config.selector);
     if (!link) return;
 
-    const currentUrl =
-      normalizeUrl(link.href);
-
+    const currentUrl = normalizeUrl(link.href);
     if (!currentUrl) return;
 
-    const previousUrl =
-      config.seenByOwner[
-        config.ownerKey
-      ][config.type];
+    const previousUrl = config.seenByOwner[config.ownerKey][config.type];
 
     if (
       config.markChanges &&
       previousUrl &&
       previousUrl !== currentUrl
     ) {
-      markAsChanged(
-        link,
-        config.type
-      );
+      markAsChanged(link, config.type);
     }
 
-    config.seenByOwner[
-      config.ownerKey
-    ][config.type] = currentUrl;
+    config.seenByOwner[config.ownerKey][config.type] = currentUrl;
   }
-
 
   function markAsChanged(link, type) {
-    const labels = {
-      outfit: "Outfit",
-      music: "Mood music",
-      gear: "Gear",
-      transpo: "Transportation"
-    };
+  const label =
+    type === "outfit" ? "Outfit" :
+    type === "music" ? "Mood Music" :
+    type === "gear" ? "Extra Gear" :
+    type === "transpo" ? "Transportation" :
+    "";
 
-    const label =
-      labels[type] || "Posting template control";
+  link.classList.add("fpost-link-changed");
+  link.dataset.changedType = type;
 
-    link.classList.add(
-      "fpost-link-changed"
-    );
+  link.setAttribute(
+    "title",
+    label + " changed since this character's previous post."
+  );
 
-    link.dataset.changedType =
-      type;
-
-    link.setAttribute(
-      "title",
-      label +
-      " changed since this character's previous post."
-    );
-
-    link.setAttribute(
-      "aria-label",
-      label +
-      " changed since this character's previous post."
-    );
-  }
-
+  link.setAttribute(
+    "aria-label",
+    label + " changed since this character's previous post."
+  );
+}
 
   async function fetchPageAsDocument(url) {
-    const response =
-      await fetch(url, {
-        credentials: "same-origin",
-        cache: "no-store"
-      });
+    const response = await fetch(url, {
+      credentials: "same-origin"
+    });
 
     if (!response.ok) {
-      throw new Error(
-        "Failed to fetch thread page: " +
-        response.status
-      );
+      throw new Error("Failed to fetch previous page: " + response.status);
     }
 
-    const html =
-      await response.text();
+    const html = await response.text();
 
-    return new DOMParser()
-      .parseFromString(
-        html,
-        "text/html"
-      );
+    return new DOMParser().parseFromString(html, "text/html");
   }
 
-
-  function getEarlierThreadPageUrls() {
-    const currentUrl =
-      new URL(window.location.href);
-
-    const currentTopicId =
-      getTopicId(currentUrl);
-
-    const currentStart =
-      getStartValue(currentUrl);
+  function getPreviousThreadPageUrl() {
+    const currentUrl = new URL(window.location.href);
+    const currentTopicId = getTopicId(currentUrl);
+    const currentStart = getStartValue(currentUrl);
 
     if (currentStart <= 0) {
-      return [];
+      return null;
     }
 
-    const pageLinks =
-      Array.from(
-        document.querySelectorAll(
-          "a[href*='showtopic=']"
-        )
-      );
+    const pageLinks = Array.from(
+      document.querySelectorAll("a[href*='showtopic=']")
+    );
 
     const candidates = [];
 
@@ -265,28 +177,18 @@ document.addEventListener("DOMContentLoaded", function () {
       let linkUrl;
 
       try {
-        linkUrl =
-          new URL(
-            link.href,
-            window.location.href
-          );
+        linkUrl = new URL(link.href, window.location.href);
       } catch (e) {
         return;
       }
 
-      const linkTopicId =
-        getTopicId(linkUrl);
+      const linkTopicId = getTopicId(linkUrl);
 
-      if (
-        currentTopicId &&
-        linkTopicId &&
-        currentTopicId !== linkTopicId
-      ) {
+      if (currentTopicId && linkTopicId && currentTopicId !== linkTopicId) {
         return;
       }
 
-      const linkStart =
-        getStartValue(linkUrl);
+      const linkStart = getStartValue(linkUrl);
 
       if (linkStart < currentStart) {
         candidates.push({
@@ -296,238 +198,100 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    if (candidates.length) {
+      candidates.sort(function (a, b) {
+        return b.start - a.start;
+      });
 
-    const uniqueByStart = {};
-
-    candidates.forEach(function (candidate) {
-      uniqueByStart[candidate.start] =
-        candidate.href;
-    });
-
-    const starts =
-      Object.keys(uniqueByStart)
-        .map(function (value) {
-          return Number(value);
-        })
-        .filter(function (value) {
-          return Number.isFinite(value);
-        })
-        .sort(function (a, b) {
-          return a - b;
-        });
-
-
-    if (!Object.prototype.hasOwnProperty.call(uniqueByStart, "0")) {
-      uniqueByStart[0] =
-        buildThreadPageUrl(
-          currentUrl,
-          currentTopicId,
-          0
-        );
-
-      starts.unshift(0);
+      return candidates[0].href;
     }
 
-    return starts.map(function (start) {
-      return uniqueByStart[start];
-    });
+    return null;
   }
-
-
-  function buildThreadPageUrl(
-    currentUrl,
-    topicId,
-    start
-  ) {
-    const url =
-      new URL(
-        currentUrl.href
-      );
-
-    if (topicId) {
-      url.searchParams.set(
-        "showtopic",
-        topicId
-      );
-    }
-
-    if (start > 0) {
-      url.searchParams.set(
-        "st",
-        String(start)
-      );
-    } else {
-      url.searchParams.delete(
-        "st"
-      );
-    }
-
-    url.hash = "";
-
-    return url.href;
-  }
-
 
   function getTopicId(url) {
-    const topicFromSearch =
-      url.searchParams.get(
-        "showtopic"
-      );
+    const topicFromSearch = url.searchParams.get("showtopic");
 
     if (topicFromSearch) {
       return topicFromSearch;
     }
 
-    const match =
-      url.href.match(
-        /showtopic[=\/](\d+)/i
-      );
+    const match = url.href.match(/showtopic[=\/](\d+)/i);
 
-    return match
-      ? match[1]
-      : "";
+    return match ? match[1] : "";
   }
-
 
   function getStartValue(url) {
- 
-    const raw =
-      url.searchParams.get(
-        "st"
-      );
+    const raw = url.searchParams.get("st");
 
-    if (!raw) {
-      return 0;
-    }
+    if (!raw) return 0;
 
-    const parsed =
-      parseInt(
-        raw,
-        10
-      );
+    const parsed = parseInt(raw, 10);
 
-    return Number.isFinite(parsed) &&
-      parsed >= 0
-      ? parsed
-      : 0;
+    return Number.isFinite(parsed) ? parsed : 0;
   }
 
-
   function getOwnerKey(template) {
-    const postShell =
-      findAncestorWithOwnerInfo(
-        template
-      );
+    const postShell = findAncestorWithOwnerInfo(template);
 
     if (postShell) {
-      const archiveSeal =
-        postShell.querySelector(
-          ".archiveseal"
-        );
+      const archiveSeal = postShell.querySelector(".archiveseal");
 
       if (archiveSeal) {
-        const fileIdMatch =
-          archiveSeal.textContent.match(
-            /\b\d+-\d+-\d+\b/
-          );
+        const fileIdMatch = archiveSeal.textContent.match(/\b\d+-\d+-\d+\b/);
 
         if (fileIdMatch) {
-          return (
-            "file-id:" +
-            fileIdMatch[0]
-          );
+          return "file-id:" + fileIdMatch[0];
         }
       }
 
-      const nameLink =
-        postShell.querySelector(
-          ".p-postname a[href]"
-        );
+      const nameLink = postShell.querySelector(".p-postname a[href]");
 
       if (nameLink) {
-        const href =
-          nameLink.getAttribute(
-            "href"
-          ) || "";
-
-        const userMatch =
-          href.match(
-            /[?&]showuser=(\d+)/i
-          );
+        const href = nameLink.getAttribute("href") || "";
+        const userMatch = href.match(/[?&]showuser=(\d+)/i);
 
         if (userMatch) {
-          return (
-            "user-id:" +
-            userMatch[1]
-          );
+          return "user-id:" + userMatch[1];
         }
 
-        return (
-          "profile-link:" +
-          href.trim()
-        );
+        return "profile-link:" + href.trim();
       }
     }
 
     return null;
   }
 
-
   function findAncestorWithOwnerInfo(startEl) {
     let node = startEl;
 
-    while (
-      node &&
-      node !== document.body
-    ) {
+    while (node && node !== document.body) {
       if (
         node.querySelector &&
         (
-          node.querySelector(
-            ".archiveseal"
-          ) ||
-          node.querySelector(
-            ".p-postname a[href]"
-          )
+          node.querySelector(".archiveseal") ||
+          node.querySelector(".p-postname a[href]")
         )
       ) {
         return node;
       }
 
-      node =
-        node.parentElement;
+      node = node.parentElement;
     }
 
     return null;
   }
 
-
   function normalizeUrl(url) {
-    if (!url) {
-      return "";
-    }
+    if (!url) return "";
 
     try {
-      const parsed =
-        new URL(
-          url,
-          window.location.href
-        );
-
+      const parsed = new URL(url, window.location.href);
       parsed.hash = "";
 
-      return parsed.href
-        .replace(
-          /\/$/,
-          ""
-        );
+      return parsed.href.replace(/\/$/, "");
     } catch (e) {
-      return String(url)
-        .trim()
-        .replace(
-          /\/$/,
-          ""
-        );
+      return String(url).trim().replace(/\/$/, "");
     }
   }
 });
